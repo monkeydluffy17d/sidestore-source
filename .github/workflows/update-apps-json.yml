@@ -100,31 +100,16 @@ jobs:
           
           # Format dates properly
           YDATE_FMT=$(date -d "${{ steps.ytkace.outputs.date }}" +%Y-%m-%d 2>/dev/null || echo "2025-01-01")
-          EVERDATE_FMT="${{ steps.eeveespotify.outputs.date }}"
           
-          # If EeveeSpotify is empty, use fallback values
+          # Check if EeveeSpotify data is available
           EEVEEVER="${{ steps.eeveespotify.outputs.version }}"
           EEVEEURL="${{ steps.eeveespotify.outputs.downloadURL }}"
           EEVEENOTES="${{ steps.eeveespotify.outputs.notes }}"
           EEVEESIZE="${{ steps.eeveespotify.outputs.size }}"
+          EVERDATE_FMT="${{ steps.eeveespotify.outputs.date }}"
           
-          if [ -z "$EEVEEVER" ]; then
-            echo "⚠️  EeveeSpotify data is empty, using fallback..."
-            EEVEEVER="UNKNOWN"
-            EVERDATE_FMT="2025-01-01"
-            EEVEEURL="https://github.com/SideloadLabs/Eevee-Alt-Source/releases"
-            EEVEENOTES="Check releases for latest version"
-            EEVEESIZE="0"
-          fi
-          
-          # Use jq to generate JSON properly (handles special chars, newlines, etc.)
-          jq -n \
-            --arg name "Luffy's App Store" \
-            --arg identifier "com.monkeydluffy17d.source" \
-            --arg subtitle "Curated tweaks & sideloaded apps, updated daily" \
-            --arg description "My personal SideStore repo packed with the latest builds of my go-to apps." \
-            --arg iconURL "https://raw.githubusercontent.com/monkeydluffy17d/sidestore-source/refs/heads/main/Images/luffyavatar.png" \
-            --arg sourceURL "https://raw.githubusercontent.com/monkeydluffy17d/sidestore-source/refs/heads/main/apps.json" \
+          # Build the apps array - start with YTKACE (always available)
+          APPS_JSON=$(jq -n \
             --arg yname "YTKACE" \
             --arg ybid "com.itzzace.ytkace" \
             --arg ydev "itzzace" \
@@ -137,47 +122,50 @@ jobs:
             --arg yicon "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d4/21/29/d4212929-8101-bde8-3b87-06455bed3cb7/Placeholder.mill/400x400bb-75.webp" \
             --arg ytint "FF0000" \
             --arg ysize "${{ steps.ytkace.outputs.size }}" \
-            --arg ename "EeveeSpotifyReincarnated" \
-            --arg ebid "com.spotify.client" \
-            --arg edev "SideloadLabs" \
-            --arg ever "$EEVEEVER" \
-            --arg edate "$EVERDATE_FMT" \
-            --arg eurl "$EEVEEURL" \
-            --arg edesc "Enjoy an upgraded, premium-like Spotify experience with ad-blocking and native tweak integration.\n\n✨ Full Changelog & Release History:\nhttps://github.com/SideloadLabs/EeveeSpotifyReincarnated/releases" \
-            --arg everdesc "$EEVEENOTES" \
-            --arg esub "Songs, Playlists & Audiobooks" \
-            --arg eicon "https://files.catbox.moe/9fgova.JPG" \
-            --arg etint "1DB954" \
-            --arg esize "$EEVEESIZE" \
-            '{
-              "name": $name,
-              "identifier": $identifier,
-              "subtitle": $subtitle,
-              "description": $description,
-              "iconURL": $iconURL,
-              "sourceURL": $sourceURL,
-              "apps": [
-                {
-                  "name": $yname,
-                  "bundleIdentifier": $ybid,
-                  "developerName": $ydev,
-                  "version": $yver,
-                  "versionDate": $ydate,
-                  "downloadURL": $yurl,
-                  "localizedDescription": $ydesc,
-                  "versionDescription": $yverdesc,
-                  "subtitle": $ysub,
-                  "iconURL": $yicon,
-                  "tintColor": $ytint,
-                  "screenshots": [
-                    "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/20/e0/9a/20e09afc-ad0c-bfbe-954b-d5b8d40c5401/91963c43-9224-4e3f-ae6c-ba3ac6de40cd_iOS-6.5-in_1.jpg/460x996bb.webp",
-                    "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/1b/47/80/1b4780c9-4cfd-1295-30c7-cbac2ee9f5d3/30797521-a83b-484b-ba8c-9e70626e258a_iOS-6.5-in_2.jpg/460x996bb.webp",
-                    "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/c2/59/61/c25961a1-a767-cceb-0665-202d8e68d685/5646e7c2-990f-4233-8839-27edda3105e4_iOS-6.5-in_3.jpg/460x996bb.webp",
-                    "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/7d/80/e8/7d80e8b3-6ec8-3634-d6d6-2cbc290363dc/7500778b-8579-41fa-a538-11cce073604b_iOS-6.5-in_4.jpg/460x996bb.webp",
-                    "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/cb/3f/4b/cb3f4bb7-69aa-b669-95e0-953b800bd208/6dbb548a-365f-4c7d-a56c-f41b7be9642c_iOS-6.5-in_5.jpg/460x996bb.webp"
-                  ],
-                  "size": ($ysize | tonumber)
-                },
+            '[
+              {
+                "name": $yname,
+                "bundleIdentifier": $ybid,
+                "developerName": $ydev,
+                "version": $yver,
+                "versionDate": $ydate,
+                "downloadURL": $yurl,
+                "localizedDescription": $ydesc,
+                "versionDescription": $yverdesc,
+                "subtitle": $ysub,
+                "iconURL": $yicon,
+                "tintColor": $ytint,
+                "screenshots": [
+                  "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/20/e0/9a/20e09afc-ad0c-bfbe-954b-d5b8d40c5401/91963c43-9224-4e3f-ae6c-ba3ac6de40cd_iOS-6.5-in_1.jpg/460x996bb.webp",
+                  "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/1b/47/80/1b4780c9-4cfd-1295-30c7-cbac2ee9f5d3/30797521-a83b-484b-ba8c-9e70626e258a_iOS-6.5-in_2.jpg/460x996bb.webp",
+                  "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/c2/59/61/c25961a1-a767-cceb-0665-202d8e68d685/5646e7c2-990f-4233-8839-27edda3105e4_iOS-6.5-in_3.jpg/460x996bb.webp",
+                  "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/7d/80/e8/7d80e8b3-6ec8-3634-d6d6-2cbc290363dc/7500778b-8579-41fa-a538-11cce073604b_iOS-6.5-in_4.jpg/460x996bb.webp",
+                  "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/cb/3f/4b/cb3f4bb7-69aa-b669-95e0-953b800bd208/6dbb548a-365f-4c7d-a56c-f41b7be9642c_iOS-6.5-in_5.jpg/460x996bb.webp"
+                ],
+                "size": ($ysize | tonumber)
+              }
+            ]')
+          
+          # Add EeveeSpotify only if we have valid data
+          if [ ! -z "$EEVEEVER" ] && [ ! -z "$EEVEEURL" ]; then
+            echo "✅ Adding EeveeSpotify to apps..."
+            # Extract date from ISO format (remove time part)
+            EVERDATE_CLEAN=$(echo "$EVERDATE_FMT" | cut -d'T' -f1)
+            
+            APPS_JSON=$(echo "$APPS_JSON" | jq \
+              --arg ename "EeveeSpotifyReincarnated" \
+              --arg ebid "com.spotify.client" \
+              --arg edev "SideloadLabs" \
+              --arg ever "$EEVEEVER" \
+              --arg edate "$EVERDATE_CLEAN" \
+              --arg eurl "$EEVEEURL" \
+              --arg edesc "Enjoy an upgraded, premium-like Spotify experience with ad-blocking and native tweak integration.\n\n✨ Full Changelog & Release History:\nhttps://github.com/SideloadLabs/EeveeSpotifyReincarnated/releases" \
+              --arg everdesc "$EEVEENOTES" \
+              --arg esub "Songs, Playlists & Audiobooks" \
+              --arg eicon "https://files.catbox.moe/9fgova.JPG" \
+              --arg etint "1DB954" \
+              --arg esize "$EEVEESIZE" \
+              '. += [
                 {
                   "name": $ename,
                   "bundleIdentifier": $ebid,
@@ -202,10 +190,31 @@ jobs:
                   ],
                   "size": ($esize | tonumber)
                 }
-              ]
+              ]')
+          else
+            echo "⚠️  EeveeSpotify data not available, skipping for this run..."
+          fi
+          
+          # Create the final JSON with metadata
+          jq -n \
+            --arg name "Luffy's App Store" \
+            --arg identifier "com.monkeydluffy17d.source" \
+            --arg subtitle "Curated tweaks & sideloaded apps, updated daily" \
+            --arg description "My personal SideStore repo packed with the latest builds of my go-to apps." \
+            --arg iconURL "https://raw.githubusercontent.com/monkeydluffy17d/sidestore-source/refs/heads/main/Images/luffyavatar.png" \
+            --arg sourceURL "https://raw.githubusercontent.com/monkeydluffy17d/sidestore-source/refs/heads/main/apps.json" \
+            --argjson apps "$APPS_JSON" \
+            '{
+              "name": $name,
+              "identifier": $identifier,
+              "subtitle": $subtitle,
+              "description": $description,
+              "iconURL": $iconURL,
+              "sourceURL": $sourceURL,
+              "apps": $apps
             }' > apps.json
           
-          echo "✅ apps.json generated"
+          echo "✅ apps.json generated successfully"
 
       # ============================================================
       # Validate the generated JSON
