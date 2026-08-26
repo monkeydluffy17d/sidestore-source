@@ -2,8 +2,8 @@
   "name": "Luffy's Repo",
   "identifier": "com.monkeydluffy17d.source",
   "subtitle": "Latest IPA releases",
-  "description": "Luffy's SideStore source containing the apps i need.",
-  "iconURL": "https://i.pinimg.com/736x/f0/d3/04/f0d30498a273adc548175453287bc5ab.jpg",
+  "description": "Luffy's SideStore source containing the apps that i need.",
+  "iconURL": "https://raw.githubusercontent.com/monkeydluffy17d/sidestore-source/refs/heads/main/Images/LuffyAvatar.png",
   "sourceURL": "https://monkeydluffy17d.github.io/sidestore-source/apps.json",
   "apps": [
     {
