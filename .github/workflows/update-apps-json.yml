@@ -3,7 +3,7 @@ name: Update SideStore Repo
 on:
   workflow_dispatch:
   schedule:
-    - cron: "30 18 * * *"   # run every day at midnight IST
+    - cron: "30 18 * * *"    # run every day at midnight IST
   release:
     types: [published]
   push:
@@ -57,11 +57,11 @@ jobs:
             --arg eeveenotes "${{ steps.eeveespotify.outputs.notes }}" \
             --arg eeveesize "${{ steps.eeveespotify.outputs.size }}" \
             '{
-              "name": "Luffy'\''s Repo",
+              "name": "Luffy\'s App Store",
               "identifier": "com.monkeydluffy17d.source",
-              "subtitle": "Latest IPA releases",
-              "description": "Luffy'\''s SideStore source containing the apps that i need.",
-              "iconURL": "https://raw.githubusercontent.com/monkeydluffy17d/sidestore-source/refs/heads/main/Images/Luffy%20header.jpg",
+              "subtitle": "Curated tweaks & sideloaded apps, updated daily",
+              "description": "A personal collection of my daily-driver sideloaded apps, automatically built and kept up to date.",
+              "iconURL": "https://raw.githubusercontent.com/monkeydluffy17d/sidestore-source/refs/heads/main/Images/luffyavatar.png",
               "sourceURL": "https://monkeydluffy17d.github.io/sidestore-source/apps.json",
               "apps": [
                 {
@@ -71,7 +71,7 @@ jobs:
                   "version": $yver,
                   "versionDate": $ydate,
                   "downloadURL": $yurl,
-                  "localizedDescription": "Enhanced YouTube experience.",
+                  "localizedDescription": "An enhanced YouTube client featuring background playback, ad-blocking, and custom overlay options.\n\n✨ Full Changelog & Release History:\nhttps://github.com/itzzace/ytkace/releases",
                   "versionDescription": $ynotes,
                   "subtitle": "Videos, Music and Live Streams",
                   "iconURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d4/21/29/d4212929-8101-bde8-3b87-06455bed3cb7/Placeholder.mill/400x400bb-75.webp",
@@ -92,7 +92,7 @@ jobs:
                   "version": $eeveever,
                   "versionDate": $everdate,
                   "downloadURL": $eeveeurl,
-                  "localizedDescription": "Spotify client with enhanced features.",
+                  "localizedDescription": "Enjoy an upgraded, premium-like Spotify experience with ad-blocking and native tweak integration.\n\n✨ Full Changelog & Release History:\nhttps://github.com/SideloadLabs/EeveeSpotifyReincarnated/releases",
                   "versionDescription": $eeveenotes,
                   "subtitle": "Songs, Playlists & Audiobooks",
                   "iconURL": "https://files.catbox.moe/9fgova.JPG",
