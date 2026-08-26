@@ -58,7 +58,7 @@ jobs:
               "identifier": "com.monkeydluffy17d.source",
               "subtitle": "Latest IPA releases",
               "description": "Luffy'\''s SideStore source containing the apps that i need.",
-              "iconURL": "https://raw.githubusercontent.com/monkeydluffy17d/sidestore-source/refs/heads/main/Images/LuffyAvatar.png",
+              "iconURL": "https://raw.githubusercontent.com/monkeydluffy17d/sidestore-source/refs/heads/main/Images/Luffy2D.JPEG",
               "sourceURL": "https://monkeydluffy17d.github.io/sidestore-source/apps.json",
               "apps": [
                 {
@@ -70,7 +70,7 @@ jobs:
                   "downloadURL": $yurl,
                   "localizedDescription": "Enhanced YouTube experience.",
                   "versionDescription": $ynotes,
-                  "subtitle": "**Videos, Music and Live Streams**",
+                  "subtitle": "Videos, Music and Live Streams",
                   "iconURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d4/21/29/d4212929-8101-bde8-3b87-06455bed3cb7/Placeholder.mill/400x400bb-75.webp",
                   "tintColor": "FF0000",
                   "screenshots": [
@@ -91,7 +91,7 @@ jobs:
                   "downloadURL": $everurl,
                   "localizedDescription": "Spotify client with enhanced features.",
                   "versionDescription": $evernotes,
-                  "subtitle": "**Songs, Playlists & Audiobooks**",
+                  "subtitle": "Songs, Playlists & Audiobooks",
                   "iconURL": "https://files.catbox.moe/9fgova.JPG",
                   "tintColor": "1DB954",
                   "screenshots": [
