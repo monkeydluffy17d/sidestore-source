@@ -3,7 +3,7 @@
   "identifier": "com.monkeydluffy17d.source",
   "subtitle": "Latest IPA releases",
   "description": "Luffy's SideStore source containing the apps that i need.",
-  "iconURL": "https://raw.githubusercontent.com/monkeydluffy17d/sidestore-source/refs/heads/main/Images/Luffy2D.JPEG",
+  "iconURL": "https://raw.githubusercontent.com/monkeydluffy17d/sidestore-source/refs/heads/main/Images/Luffy%20header.jpg",
   "sourceURL": "https://monkeydluffy17d.github.io/sidestore-source/apps.json",
   "apps": [
     {
@@ -28,7 +28,7 @@
       "size": 132473869
     },
     {
-      "name": "EveeSpotify",
+      "name": "EeveeSpotifyReincarnated",
       "bundleIdentifier": "com.spotify.client",
       "developerName": "SideloadLabs",
       "version": "9.1.76",
