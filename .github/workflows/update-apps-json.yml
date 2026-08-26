@@ -91,8 +91,11 @@ jobs:
                   "iconURL": "https://files.catbox.moe/9fgova.JPG",
                   "tintColor": "1DB954",
                   "screenshots": [
-                    "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/36/db/ec/36dbecd1-9a85-d55a-e84b-8022ea777825/7a94f703-7c3e-4789-9bd7-ce80045fe7b6_iOS-6.5-in_1.jpg/230x498bb.webp",
-                    "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/41/55/e3/4155e384-a42d-6062-2007-282bb040363d/9bde600a-9d57-41c4-830b-3261fee4a323_iOS-6.5-in_2.jpg/230x498bb.webp"
+                    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/32/8d/97/328d97d5-1f15-64bb-cd07-9c99caa3df21/IOS_-_6.5_-_S01_-_EN_-_GB.png/300x650bb.webp",
+                    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/78/a7/41/78a74106-c5ed-407f-016a-0e5ec1828022/IOS_-_6.5_-_S02_-_EN_-_GB.png/300x650bb.webp",
+                    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/63/5d/d5/635dd568-ba3b-a0a1-2916-52497dec2ad6/IOS_-_6.5_-_S03_-_EN_-_GB.png/300x650bb.webp",
+                    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/a2/3e/94/a23e94b6-1401-de71-817e-5a33b4d821a9/IOS_-_6.5_-_S04_-_EN_-_GB.png/300x650bb.webp",
+                    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/fd/9a/47/fd9a47d4-029b-eb3b-2a39-a6de9b515aae/IOS_-_6.5_-_S05_-_EN_-_GB.png/300x650bb.webp"
                   ],
                   "size": ($eversize|tonumber)
                 }
