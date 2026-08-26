@@ -1,0 +1,12 @@
+{
+  "apps": [
+    {
+      "name": "YTKACE",
+      "bundleIdentifier": "com.itzzace.ytkace",
+      "developerName": "itzzace",
+      "version": "placeholder",
+      "downloadURL": "https://example.com",
+      "localizedDescription": "Placeholder until workflow updates automatically."
+    }
+  ]
+}
