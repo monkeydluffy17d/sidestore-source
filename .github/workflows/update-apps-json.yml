@@ -1,0 +1,51 @@
+name: Update SideStore Repo
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  update-json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Get release info
+        id: release
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const release = context.payload.release;
+            const asset = release.assets.find(a => a.name.endsWith(".ipa"));
+            if (!asset) {
+              throw new Error("No IPA asset found in release");
+            }
+            return {
+              version: release.tag_name,
+              notes: release.body || "No release notes provided",
+              downloadURL: asset.browser_download_url
+            };
+
+      - name: Update apps.json
+        run: |
+          echo '{
+            "apps": [
+              {
+                "name": "YTKACE",
+                "bundleIdentifier": "com.itzzace.ytkace",
+                "developerName": "itzzace",
+                "version": "${{ steps.release.outputs.version }}",
+                "downloadURL": "${{ steps.release.outputs.downloadURL }}",
+                "localizedDescription": "${{ steps.release.outputs.notes }}"
+              }
+            ]
+          }' > apps.json
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add apps.json
+          git commit -m "Update apps.json for ${{ steps.release.outputs.version }}"
+          git push
