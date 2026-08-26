@@ -56,43 +56,41 @@ jobs:
             }
 
       # ============================================================
-      # Fetch EeveeSpotify info (FIXED!)
+      # Fetch EeveeSpotify info from SideloadLabs AltSource
       # ============================================================
       - name: Get EeveeSpotify release info
         id: eeveespotify
         run: |
           set -e
           
-          echo "Fetching EeveeSpotify data..."
+          echo "Fetching EeveeSpotify from SideloadLabs source..."
           
-          # Fetch from Eevee-Alt-Source (correct repository)
-          RESPONSE=$(curl -sf "https://github.com/SideloadLabs/Eevee-Alt-Source/raw/refs/heads/main/apps.json" 2>&1)
+          # Fetch from SideloadLabs AltSource (contains EeveeSpotify)
+          RESPONSE=$(curl -sf "https://raw.githubusercontent.com/SideloadLabs/SideloasLabs-AltSource/refs/heads/main/apps.json" 2>&1)
           
           if [ -z "$RESPONSE" ]; then
-            echo "⚠️  EeveeSpotify JSON not found, trying fallback..."
-            # Fallback: if repo structure is different, you might need to adjust this
-            RESPONSE='{}'
+            echo "❌ Failed to fetch SideloadLabs source"
+            exit 1
           fi
           
-          # Extract each field carefully with fallbacks
-          VERSION=$(echo "$RESPONSE" | jq -r '.apps[0].version // empty' 2>/dev/null || echo "")
-          DATE=$(echo "$RESPONSE" | jq -r '.apps[0].versionDate // empty' 2>/dev/null || echo "")
-          DOWNLOADURL=$(echo "$RESPONSE" | jq -r '.apps[0].downloadURL // empty' 2>/dev/null || echo "")
-          NOTES=$(echo "$RESPONSE" | jq -r '.apps[0].versionDescription // .apps[0].localizedDescription // empty' 2>/dev/null || echo "")
-          SIZE=$(echo "$RESPONSE" | jq -r '.apps[0].size // 0' 2>/dev/null || echo "0")
+          # Extract the FIRST EeveeSpotify app (unpatched version)
+          EEVEE_APP=$(echo "$RESPONSE" | jq '.apps[] | select(.name == "EeveeSpotifyReincarnated") | select(.bundleIdentifier == "com.spotify.client") | first' 2>/dev/null)
           
-          # Output in GitHub Actions format
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "date=$DATE" >> $GITHUB_OUTPUT
-          echo "downloadURL=$DOWNLOADURL" >> $GITHUB_OUTPUT
-          echo "notes=$NOTES" >> $GITHUB_OUTPUT
-          echo "size=$SIZE" >> $GITHUB_OUTPUT
+          if [ -z "$EEVEE_APP" ] || [ "$EEVEE_APP" == "null" ]; then
+            echo "⚠️  EeveeSpotifyReincarnated (unpatched) not found in source"
+            echo "eevee_app={}" >> $GITHUB_OUTPUT
+            exit 0
+          fi
           
-          # Show what we got
-          echo "✅ EeveeSpotify v$VERSION"
+          # Store the entire app object as JSON
+          echo "eevee_app=$EEVEE_APP" >> $GITHUB_OUTPUT
+          
+          # Extract individual fields for display
+          VERSION=$(echo "$EEVEE_APP" | jq -r '.version // "unknown"')
+          echo "✅ EeveeSpotify v$VERSION found"
 
       # ============================================================
-      # Generate apps.json with proper error handling
+      # Generate apps.json by scraping and merging sources
       # ============================================================
       - name: Update apps.json
         run: |
@@ -101,15 +99,11 @@ jobs:
           # Format dates properly
           YDATE_FMT=$(date -d "${{ steps.ytkace.outputs.date }}" +%Y-%m-%d 2>/dev/null || echo "2025-01-01")
           
-          # Check if EeveeSpotify data is available
-          EEVEEVER="${{ steps.eeveespotify.outputs.version }}"
-          EEVEEURL="${{ steps.eeveespotify.outputs.downloadURL }}"
-          EEVEENOTES="${{ steps.eeveespotify.outputs.notes }}"
-          EEVEESIZE="${{ steps.eeveespotify.outputs.size }}"
-          EVERDATE_FMT="${{ steps.eeveespotify.outputs.date }}"
+          # Get the scraped EeveeSpotify app (entire object as JSON)
+          EEVEE_APP='${{ steps.eeveespotify.outputs.eevee_app }}'
           
-          # Build the apps array - start with YTKACE (always available)
-          APPS_JSON=$(jq -n \
+          # Build apps array starting with YTKACE
+          APPS=$(jq -n \
             --arg yname "YTKACE" \
             --arg ybid "com.itzzace.ytkace" \
             --arg ydev "itzzace" \
@@ -146,56 +140,15 @@ jobs:
               }
             ]')
           
-          # Add EeveeSpotify only if we have valid data
-          if [ ! -z "$EEVEEVER" ] && [ ! -z "$EEVEEURL" ]; then
-            echo "✅ Adding EeveeSpotify to apps..."
-            # Extract date from ISO format (remove time part)
-            EVERDATE_CLEAN=$(echo "$EVERDATE_FMT" | cut -d'T' -f1)
-            
-            APPS_JSON=$(echo "$APPS_JSON" | jq \
-              --arg ename "EeveeSpotifyReincarnated" \
-              --arg ebid "com.spotify.client" \
-              --arg edev "SideloadLabs" \
-              --arg ever "$EEVEEVER" \
-              --arg edate "$EVERDATE_CLEAN" \
-              --arg eurl "$EEVEEURL" \
-              --arg edesc "Enjoy an upgraded, premium-like Spotify experience with ad-blocking and native tweak integration.\n\n✨ Full Changelog & Release History:\nhttps://github.com/SideloadLabs/EeveeSpotifyReincarnated/releases" \
-              --arg everdesc "$EEVEENOTES" \
-              --arg esub "Songs, Playlists & Audiobooks" \
-              --arg eicon "https://files.catbox.moe/9fgova.JPG" \
-              --arg etint "1DB954" \
-              --arg esize "$EEVEESIZE" \
-              '. += [
-                {
-                  "name": $ename,
-                  "bundleIdentifier": $ebid,
-                  "developerName": $edev,
-                  "version": $ever,
-                  "versionDate": $edate,
-                  "downloadURL": $eurl,
-                  "localizedDescription": $edesc,
-                  "versionDescription": $everdesc,
-                  "subtitle": $esub,
-                  "iconURL": $eicon,
-                  "tintColor": $etint,
-                  "screenshots": [
-                    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/32/8d/97/328d97d5-1f15-64bb-cd07-9c99caa3df21/IOS_-_6.5_-_S01_-_EN_-_GB.png/300x650bb.webp",
-                    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/78/a7/41/78a74106-c5ed-407f-016a-0e5ec1828022/IOS_-_6.5_-_S02_-_EN_-_GB.png/300x650bb.webp",
-                    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/03/b0/10/03b010df-e0f0-a98c-38dd-3fe51a4faa15/IOS_-_6.5_-_S03_-__U005bEnglish__U0028GB_U0029_U005d.png/300x650bb.webp",
-                    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/5b/f9/f0/5bf9f0c5-fae8-6c74-98a3-47112d9a3fb8/IOS_-_6.5_-_S04_-__U005bEnglish__U0028GB_U0029_U005d.png/300x650bb.webp",
-                    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/13/db/cc/13dbcc4c-dfde-edd3-1489-368afd232f47/IOS_-_6.5_-_S05_-_EN_-_GB.png/300x650bb.webp",
-                    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/60/70/3c/60703c64-cd84-ffc2-c1ac-f7bf951ab2f8/IOS_-_6.5_-_S06_-__U005bEnglish__U0028GB_U0029_U005d.png/300x650bb.webp",
-                    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/18/88/4a/18884ac2-b1da-30ad-af09-560b2f7fea2c/IOS_-_6.5_-_S07_-__U005bEnglish__U0028GB_U0029_U005d.png/300x650bb.webp",
-                    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/8e/a4/3c/8ea43c40-6400-dbb2-8305-d9958986ef67/IOS_-_6.5_-_S08_-__U005bEnglish__U0028GB_U0029_U005d.png/300x650bb.webp"
-                  ],
-                  "size": ($esize | tonumber)
-                }
-              ]')
+          # Add EeveeSpotify if fetch was successful
+          if [ "$EEVEE_APP" != "{}" ] && [ ! -z "$EEVEE_APP" ]; then
+            echo "✅ Adding scraped EeveeSpotify from SideloadLabs source..."
+            APPS=$(echo "$APPS" | jq --argjson eevee "$EEVEE_APP" '. += [$eevee]')
           else
-            echo "⚠️  EeveeSpotify data not available, skipping for this run..."
+            echo "⚠️  EeveeSpotify not available, using only YTKACE"
           fi
           
-          # Create the final JSON with metadata
+          # Create final source JSON
           jq -n \
             --arg name "Luffy's App Store" \
             --arg identifier "com.monkeydluffy17d.source" \
@@ -203,7 +156,7 @@ jobs:
             --arg description "My personal SideStore repo packed with the latest builds of my go-to apps." \
             --arg iconURL "https://raw.githubusercontent.com/monkeydluffy17d/sidestore-source/refs/heads/main/Images/luffyavatar.png" \
             --arg sourceURL "https://raw.githubusercontent.com/monkeydluffy17d/sidestore-source/refs/heads/main/apps.json" \
-            --argjson apps "$APPS_JSON" \
+            --argjson apps "$APPS" \
             '{
               "name": $name,
               "identifier": $identifier,
