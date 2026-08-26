@@ -74,7 +74,8 @@ jobs:
           fi
           
           # Extract the FIRST EeveeSpotify app (unpatched version)
-          EEVEE_APP=$(echo "$RESPONSE" | jq '.apps[] | select(.name == "EeveeSpotifyReincarnated" and .bundleIdentifier == "com.spotify.client")' 2>/dev/null | head -1)
+          # Use -c to compact output (single line per object)
+          EEVEE_APP=$(echo "$RESPONSE" | jq -c '.apps[] | select(.name == "EeveeSpotifyReincarnated" and .bundleIdentifier == "com.spotify.client")' 2>/dev/null | head -1)
           
           if [ -z "$EEVEE_APP" ] || [ "$EEVEE_APP" == "null" ]; then
             echo "⚠️  EeveeSpotifyReincarnated (unpatched) not found in source"
