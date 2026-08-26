@@ -65,8 +65,8 @@ jobs:
           
           echo "Fetching EeveeSpotify data..."
           
-          # Try to fetch from the correct repository
-          RESPONSE=$(curl -sf "https://raw.githubusercontent.com/SideloadLabs/EeveeSpotifyReincarnated/refs/heads/main/apps.json" 2>&1)
+          # Fetch from Eevee-Alt-Source (correct repository)
+          RESPONSE=$(curl -sf "https://github.com/SideloadLabs/Eevee-Alt-Source/raw/refs/heads/main/apps.json" 2>&1)
           
           if [ -z "$RESPONSE" ]; then
             echo "⚠️  EeveeSpotify JSON not found, trying fallback..."
