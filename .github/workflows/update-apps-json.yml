@@ -30,6 +30,12 @@ jobs:
             });
             const asset = release.data.assets.find(a => a.name.toLowerCase().includes(".ipa"));
             if (!asset) throw new Error("No IPA asset found in YTKACE release");
+
+            // Extract YouTube base version from IPA filename (e.g., YouTube_21.33.6.ipa)
+            const youtubeVersion = asset.name.match(/YouTube_(\d+\.\d+\.\d+)/)?.[1];
+            if (!youtubeVersion) throw new Error("Could not parse YouTube version from asset name");
+
+            core.setOutput("version", youtubeVersion);   // <-- use YouTube version here
             core.setOutput("version", release.data.tag_name);
             core.setOutput("date", release.data.published_at);
             core.setOutput("notes", release.data.body || "No release notes provided");
