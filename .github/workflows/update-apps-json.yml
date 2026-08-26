@@ -3,7 +3,7 @@ name: Update SideStore Repo
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 * * *"   # run every day at midnight UTC
+    - cron: "30 18 * * *"   # run every day at midnight IST
   release:
     types: [published]
   push:
