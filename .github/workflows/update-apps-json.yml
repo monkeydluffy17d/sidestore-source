@@ -30,11 +30,10 @@ jobs:
             core.setOutput("size", asset.size);
 
       # Fetch EverSpotify release info
-      # Fetch EverSpotify release info
       - name: Get EverSpotify release info
-       id: everspotify
-       uses: actions/github-script@v6
-       with:
+        id: everspotify
+        uses: actions/github-script@v6
+        with:
           script: |
             const release = await github.rest.repos.getLatestRelease({
               owner: "SideloadLabs",
