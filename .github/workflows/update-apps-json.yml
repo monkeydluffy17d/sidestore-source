@@ -29,6 +29,7 @@ jobs:
             const asset = release.data.assets.find(a => a.name.toLowerCase().includes(".ipa"));
             if (!asset) throw new Error("No IPA asset found in YTKACE release");
             core.setOutput("version", release.data.tag_name);
+            core.setOutput("date", release.data.published_at);
             core.setOutput("notes", release.data.body || "No release notes provided");
             core.setOutput("downloadURL", asset.browser_download_url);
             core.setOutput("size", asset.size);
@@ -39,17 +40,19 @@ jobs:
         run: |
           curl -s https://raw.githubusercontent.com/SideloadLabs/SideloasLabs-AltSource/refs/heads/main/apps.json \
             | jq -r '.apps[] | select(.bundleIdentifier=="com.spotify.client") 
-              | "version=\(.version)\nnotes=\(.localizedDescription)\ndownloadURL=\(.downloadURL)\nsize=\(.size)"' >> $GITHUB_OUTPUT
+              | "version=\(.version)\nnotes=\(.localizedDescription)\ndownloadURL=\(.downloadURL)\nsize=\(.size)\ndate=\(.versionDate)"' >> $GITHUB_OUTPUT
 
       # Write apps.json safely with jq (escape newlines + include top-level source info)
       - name: Update apps.json
         run: |
           jq -n \
             --arg yver "${{ steps.ytkace.outputs.version }}" \
+            --arg ydate "$(date -d "${{ steps.ytkace.outputs.date }}" +%Y-%m-%d)" \
             --arg yurl "${{ steps.ytkace.outputs.downloadURL }}" \
             --arg ynotes "${{ steps.ytkace.outputs.notes }}" \
             --arg ysize "${{ steps.ytkace.outputs.size }}" \
             --arg eeveever "${{ steps.eeveespotify.outputs.version }}" \
+            --arg everdate "${{ steps.eeveespotify.outputs.date }}" \
             --arg eeveeurl "${{ steps.eeveespotify.outputs.downloadURL }}" \
             --arg eeveenotes "${{ steps.eeveespotify.outputs.notes }}" \
             --arg eeveesize "${{ steps.eeveespotify.outputs.size }}" \
@@ -66,7 +69,7 @@ jobs:
                   "bundleIdentifier": "com.itzzace.ytkace",
                   "developerName": "itzzace",
                   "version": $yver,
-                  "versionDate": (now | strftime("%Y-%m-%d")),
+                  "versionDate": $ydate,
                   "downloadURL": $yurl,
                   "localizedDescription": "Enhanced YouTube experience.",
                   "versionDescription": $ynotes,
@@ -87,7 +90,7 @@ jobs:
                   "bundleIdentifier": "com.spotify.client",
                   "developerName": "SideloadLabs",
                   "version": $eeveever,
-                  "versionDate": (now | strftime("%Y-%m-%d")),
+                  "versionDate": $everdate,
                   "downloadURL": $eeveeurl,
                   "localizedDescription": "Spotify client with enhanced features.",
                   "versionDescription": $eeveenotes,
