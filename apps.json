@@ -13,7 +13,8 @@
       "version": "v0.9.0",
       "versionDate": "2026-08-26",
       "downloadURL": "https://github.com/itzzace/ytkace/releases/download/v0.9.0/YTKACE_0.9.0_YouTube_21.33.6.ipa",
-      "localizedDescription": "by @itzzace0\\n\\n**What's new:**\\n- Updated for YouTube 21.33.6\\n- Playback Recovery has been rebuilt from scratch\\n- Default playback speed is now a menu with Follow YouTube, Match last used, and Custom\\n- Japanese is now selectable in the language list\\n- Added an Audit section to the README covering what was checked and what was found\\n\\n**Fixed:**\\n- Fixed SponsorBlock markers jumping to the top of the screen after switching in or out of fullscreen\\n- Added missing playback speed strings to every non-English language, and translated the settings description that had only ever appeared in English\\n",
+      "localizedDescription": "Enhanced YouTube experience with playback recovery and speed controls.",
+      "versionDescription": "by @itzzace0\\n\\n**What's new:**\\n- Updated for YouTube 21.33.6\\n- Playback Recovery has been rebuilt from scratch\\n- Default playback speed is now a menu with Follow YouTube, Match last used, and Custom\\n- Japanese is now selectable in the language list\\n- Added an Audit section to the README covering what was checked and what was found\\n\\n**Fixed:**\\n- Fixed SponsorBlock markers jumping to the top of the screen after switching in or out of fullscreen\\n- Added missing playback speed strings to every non-English language, and translated the settings description that had only ever appeared in English\\n",
       "iconURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d4/21/29/d4212929-8101-bde8-3b87-06455bed3cb7/Placeholder.mill/400x400bb-75.webp",
       "tintColor": "FF0000",
       "screenshots": [
@@ -32,18 +33,13 @@
       "version": "9.1.76",
       "versionDate": "2026-08-26",
       "downloadURL": "https://files.catbox.moe/1qbbn8.ipa",
-      "localizedDescription": "Spotify Version: v9.1.76, EeveeSpotify Version: 6.6.8(2) Unpatched Version, pls use this if on Altstore/Sidestore, free cert",
+      "localizedDescription": "Spotify client with enhanced features and free certificate support.",
+      "versionDescription": "Spotify Version: v9.1.76, EeveeSpotify Version: 6.6.8(2) Unpatched Version, pls use this if on Altstore/Sidestore, free cert",
       "iconURL": "https://files.catbox.moe/9fgova.JPG",
       "tintColor": "1DB954",
       "screenshots": [
-        "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/32/8d/97/328d97d5-1f15-64bb-cd07-9c99caa3df21/IOS_-_6.5_-_S01_-_EN_-_GB.png/300x650bb.webp",
-        "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/78/a7/41/78a74106-c5ed-407f-016a-0e5ec1828022/IOS_-_6.5_-_S02_-_EN_-_GB.png/300x650bb.webp",
-        "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/03/b0/10/03b010df-e0f0-a98c-38dd-3fe51a4faa15/IOS_-_6.5_-_S03_-__U005bEnglish__U0028GB_U0029_U005d.png/300x650bb.webp",
-        "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/5b/f9/f0/5bf9f0c5-fae8-6c74-98a3-47112d9a3fb8/IOS_-_6.5_-_S04_-__U005bEnglish__U0028GB_U0029_U005d.png/300x650bb.webp",
-        "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/13/db/cc/13dbcc4c-dfde-edd3-1489-368afd232f47/IOS_-_6.5_-_S05_-_EN_-_GB.png/300x650bb.webp",
-        "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/60/70/3c/60703c64-cd84-ffc2-c1ac-f7bf951ab2f8/IOS_-_6.5_-_S06_-__U005bEnglish__U0028GB_U0029_U005d.png/300x650bb.webp",
-        "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/18/88/4a/18884ac2-b1da-30ad-af09-560b2f7fea2c/IOS_-_6.5_-_S07_-__U005bEnglish__U0028GB_U0029_U005d.png/300x650bb.webp",
-        "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/8e/a4/3c/8ea43c40-6400-dbb2-8305-d9958986ef67/IOS_-_6.5_-_S08_-__U005bEnglish__U0028GB_U0029_U005d.png/300x650bb.webp"
+        "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/36/db/ec/36dbecd1-9a85-d55a-e84b-8022ea777825/7a94f703-7c3e-4789-9bd7-ce80045fe7b6_iOS-6.5-in_1.jpg/230x498bb.webp",
+        "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/41/55/e3/4155e384-a42d-6062-2007-282bb040363d/9bde600a-9d57-41c4-830b-3261fee4a323_iOS-6.5-in_2.jpg/230x498bb.webp"
       ],
       "size": 130000000
     }
