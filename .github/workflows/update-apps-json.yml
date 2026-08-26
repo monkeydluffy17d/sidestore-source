@@ -6,7 +6,9 @@ on:
     - cron: "0 0 * * *"   # run every day at midnight UTC
   release:
     types: [published]
-
+  push:
+    branches:
+      - main
 jobs:
   update-json:
     runs-on: ubuntu-latest
