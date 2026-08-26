@@ -199,7 +199,8 @@ jobs:
           echo "✅ JSON validation passed"
           echo ""
           echo "📦 Generated Source:"
-          jq '.name, .apps[] | .name, .version' apps.json
+          jq -r '.name' apps.json
+          jq -r '.apps[] | "\(.name) v\(.version)"' apps.json
 
       # ============================================================
       # Commit and push changes
