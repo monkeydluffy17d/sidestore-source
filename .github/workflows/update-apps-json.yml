@@ -49,10 +49,10 @@ jobs:
             --arg yurl "${{ steps.ytkace.outputs.downloadURL }}" \
             --arg ynotes "${{ steps.ytkace.outputs.notes }}" \
             --arg ysize "${{ steps.ytkace.outputs.size }}" \
-            --arg everver "${{ steps.eeveespotify.outputs.version }}" \
-            --arg everurl "${{ steps.eeveespotify.outputs.downloadURL }}" \
-            --arg evernotes "${{ steps.eeveespotify.outputs.notes }}" \
-            --arg eversize "${{ steps.eeveespotify.outputs.size }}" \
+            --arg eeveever "${{ steps.eeveespotify.outputs.version }}" \
+            --arg eeveeurl "${{ steps.eeveespotify.outputs.downloadURL }}" \
+            --arg eeveenotes "${{ steps.eeveespotify.outputs.notes }}" \
+            --arg eeveesize "${{ steps.eeveespotify.outputs.size }}" \
             '{
               "name": "Luffy'\''s Repo",
               "identifier": "com.monkeydluffy17d.source",
