@@ -30,23 +30,22 @@ jobs:
             core.setOutput("size", asset.size);
 
       # Fetch EverSpotify release info
+      # Fetch EverSpotify release info
       - name: Get EverSpotify release info
-        id: everspotify
-        uses: actions/github-script@v6
-        with:
+       id: everspotify
+       uses: actions/github-script@v6
+       with:
           script: |
-            const { data: release } = await github.rest.repos.getLatestRelease({
-              owner: "<otheruser>",   # replace with actual GitHub username
-              repo: "everspotify"    # replace with actual repo name
+            const release = await github.rest.repos.getLatestRelease({
+              owner: "SideloadLabs",
+              repo: "EeveeSpotifyReincarnated"
             });
-            const asset = release.assets.find(a => a.name.endsWith(".ipa"));
+            const asset = release.data.assets.find(a => a.name.endsWith(".ipa"));
             if (!asset) throw new Error("No IPA asset found in EverSpotify release");
-            return {
-              version: release.tag_name,
-              notes: release.body || "No release notes provided",
-              downloadURL: asset.browser_download_url,
-              size: asset.size
-            };
+            core.setOutput("version", release.data.tag_name);
+            core.setOutput("notes", release.data.body || "No release notes provided");
+            core.setOutput("downloadURL", asset.browser_download_url);
+            core.setOutput("size", asset.size);
 
       # Write apps.json
       - name: Update apps.json
