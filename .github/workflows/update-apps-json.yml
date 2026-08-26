@@ -34,8 +34,8 @@ jobs:
             core.setOutput("size", asset.size);
 
       # Fetch EverSpotify info from SideloadLabs AltSource JSON
-      - name: Get EverSpotify release info
-        id: everspotify
+      - name: Get EeveeSpotify release info
+        id: eeveespotify
         run: |
           curl -s https://raw.githubusercontent.com/SideloadLabs/SideloasLabs-AltSource/refs/heads/main/apps.json \
             | jq -r '.apps[] | select(.bundleIdentifier=="com.spotify.client") 
@@ -49,16 +49,16 @@ jobs:
             --arg yurl "${{ steps.ytkace.outputs.downloadURL }}" \
             --arg ynotes "${{ steps.ytkace.outputs.notes }}" \
             --arg ysize "${{ steps.ytkace.outputs.size }}" \
-            --arg everver "${{ steps.everspotify.outputs.version }}" \
-            --arg everurl "${{ steps.everspotify.outputs.downloadURL }}" \
-            --arg evernotes "${{ steps.everspotify.outputs.notes }}" \
-            --arg eversize "${{ steps.everspotify.outputs.size }}" \
+            --arg everver "${{ steps.eeveespotify.outputs.version }}" \
+            --arg everurl "${{ steps.eeveespotify.outputs.downloadURL }}" \
+            --arg evernotes "${{ steps.eeveespotify.outputs.notes }}" \
+            --arg eversize "${{ steps.eeveespotify.outputs.size }}" \
             '{
               "name": "Luffy'\''s Repo",
               "identifier": "com.monkeydluffy17d.source",
               "subtitle": "Latest IPA releases",
               "description": "Luffy'\''s SideStore source containing the apps that i need.",
-              "iconURL": "https://raw.githubusercontent.com/monkeydluffy17d/sidestore-source/refs/heads/main/Images/Luffy2D.JPEG",
+              "iconURL": "https://raw.githubusercontent.com/monkeydluffy17d/sidestore-source/refs/heads/main/Images/Luffy%20header.jpg",
               "sourceURL": "https://monkeydluffy17d.github.io/sidestore-source/apps.json",
               "apps": [
                 {
@@ -83,14 +83,14 @@ jobs:
                   "size": ($ysize|tonumber)
                 },
                 {
-                  "name": "EveeSpotify",
+                  "name": "EeveeSpotifyReincarnated",
                   "bundleIdentifier": "com.spotify.client",
                   "developerName": "SideloadLabs",
-                  "version": $everver,
+                  "version": $eeveever,
                   "versionDate": (now | strftime("%Y-%m-%d")),
-                  "downloadURL": $everurl,
+                  "downloadURL": $eeveeurl,
                   "localizedDescription": "Spotify client with enhanced features.",
-                  "versionDescription": $evernotes,
+                  "versionDescription": $eeveenotes,
                   "subtitle": "Songs, Playlists & Audiobooks",
                   "iconURL": "https://files.catbox.moe/9fgova.JPG",
                   "tintColor": "1DB954",
@@ -104,7 +104,7 @@ jobs:
                     "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/18/88/4a/18884ac2-b1da-30ad-af09-560b2f7fea2c/IOS_-_6.5_-_S07_-__U005bEnglish__U0028GB_U0029_U005d.png/300x650bb.webp",
                     "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/8e/a4/3c/8ea43c40-6400-dbb2-8305-d9958986ef67/IOS_-_6.5_-_S08_-__U005bEnglish__U0028GB_U0029_U005d.png/300x650bb.webp"
                   ],
-                  "size": ($eversize|tonumber)
+                  "size": ($eeveesize|tonumber)
                 }
               ]
             }' > apps.json
