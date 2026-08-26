@@ -3,14 +3,13 @@ name: Update SideStore Repo
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 * * *" # Run every day at midnight UTC
+    - cron: "0 0 * * *"   # run every day at midnight UTC
   release:
     types: [published]
 
 jobs:
   update-json:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -25,20 +24,10 @@ jobs:
               owner: "itzzace",
               repo: "ytkace"
             });
-
-            const asset = release.data.assets.find(
-              a => a.name.toLowerCase().includes(".ipa")
-            );
-
-            if (!asset) {
-              throw new Error("No IPA asset found in YTKACE release");
-            }
-
+            const asset = release.data.assets.find(a => a.name.toLowerCase().includes(".ipa"));
+            if (!asset) throw new Error("No IPA asset found in YTKACE release");
             core.setOutput("version", release.data.tag_name);
-            core.setOutput(
-              "notes",
-              release.data.body || "No release notes provided"
-            );
+            core.setOutput("notes", release.data.body || "No release notes provided");
             core.setOutput("downloadURL", asset.browser_download_url);
             core.setOutput("size", asset.size);
 
@@ -46,13 +35,11 @@ jobs:
       - name: Get EverSpotify release info
         id: everspotify
         run: |
-          curl -s "https://raw.githubusercontent.com/SideloadLabs/SideloasLabs-AltSource/refs/heads/main/apps.json" \
-            | jq -r '
-              .apps[]
-              | select(.bundleIdentifier == "com.spotify.client")
-              | "version=\(.version)\nnotes=\(.localizedDescription)\ndownloadURL=\(.downloadURL)\nsize=\(.size)"
-            ' >> "$GITHUB_OUTPUT"
+          curl -s https://raw.githubusercontent.com/SideloadLabs/SideloasLabs-AltSource/refs/heads/main/apps.json \
+            | jq -r '.apps[] | select(.bundleIdentifier=="com.spotify.client") 
+              | "version=\(.version)\nnotes=\(.localizedDescription)\ndownloadURL=\(.downloadURL)\nsize=\(.size)"' >> $GITHUB_OUTPUT
 
+      # Write apps.json safely with jq
       - name: Update apps.json
         run: |
           jq -n \
@@ -76,7 +63,7 @@ jobs:
                   iconURL: "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d4/21/29/d4212929-8101-bde8-3b87-06455bed3cb7/Placeholder.mill/400x400bb-75.webp",
                   tintColor: "FF0000",
                   screenshots: [],
-                  size: ($ysize | tonumber)
+                  size: ($ysize|tonumber)
                 },
                 {
                   name: "EverSpotify",
@@ -88,7 +75,7 @@ jobs:
                   iconURL: "https://files.catbox.moe/9fgova.JPG",
                   tintColor: "1DB954",
                   screenshots: [],
-                  size: ($eversize | tonumber)
+                  size: ($eversize|tonumber)
                 }
               ]
             }' > apps.json
@@ -97,10 +84,6 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-
           git add apps.json
-
-          git diff --cached --quiet || \
-            git commit -m "Update apps.json with latest releases"
-
+          git commit -m "Update apps.json with latest releases"
           git push
