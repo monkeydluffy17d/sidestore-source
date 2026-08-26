@@ -35,8 +35,8 @@ jobs:
             const youtubeVersion = asset.name.match(/YouTube_(\d+\.\d+\.\d+)/)?.[1];
             if (!youtubeVersion) throw new Error("Could not parse YouTube version from asset name");
 
-            core.setOutput("version", youtubeVersion);   // <-- use YouTube version here
-            core.setOutput("version", release.data.tag_name);
+            core.setOutput("youtubeVersion", youtubeVersion);   // base app version
+            core.setOutput("tweakVersion", release.data.tag_name); // YTKACE tag
             core.setOutput("date", release.data.published_at);
             core.setOutput("notes", release.data.body || "No release notes provided");
             core.setOutput("downloadURL", asset.browser_download_url);
@@ -54,7 +54,8 @@ jobs:
       - name: Update apps.json
         run: |
           jq -n \
-            --arg yver "${{ steps.ytkace.outputs.version }}" \
+            --arg yver "${{ steps.ytkace.outputs.youtubeVersion }}" \
+            --arg ytweak "${{ steps.ytkace.outputs.tweakVersion }}" \
             --arg ydate "$(date -d "${{ steps.ytkace.outputs.date }}" +%Y-%m-%d)" \
             --arg yurl "${{ steps.ytkace.outputs.downloadURL }}" \
             --arg ynotes "${{ steps.ytkace.outputs.notes }}" \
@@ -80,7 +81,7 @@ jobs:
                   "versionDate": $ydate,
                   "downloadURL": $yurl,
                   "localizedDescription": "An enhanced YouTube client featuring background playback, ad-blocking, and custom overlay options.\n\n✨ Full Changelog & Release History:\nhttps://github.com/itzzace/ytkace/releases",
-                  "versionDescription": $ynotes,
+                  "versionDescription": ("YTKACE " + $ytweak + "\n\n" + $ynotes),
                   "subtitle": "Videos, Music and Live Streams",
                   "iconURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d4/21/29/d4212929-8101-bde8-3b87-06455bed3cb7/Placeholder.mill/400x400bb-75.webp",
                   "tintColor": "FF0000",
