@@ -70,7 +70,7 @@ jobs:
                   "downloadURL": $yurl,
                   "localizedDescription": "Enhanced YouTube experience.",
                   "versionDescription": $ynotes,
-                  "subtitle": "**Videos, Music and Live Streams**"
+                  "subtitle": "**Videos, Music and Live Streams**",
                   "iconURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d4/21/29/d4212929-8101-bde8-3b87-06455bed3cb7/Placeholder.mill/400x400bb-75.webp",
                   "tintColor": "FF0000",
                   "screenshots": [
