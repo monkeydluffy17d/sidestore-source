@@ -39,7 +39,7 @@ jobs:
             | jq -r '.apps[] | select(.bundleIdentifier=="com.spotify.client") 
               | "version=\(.version)\nnotes=\(.localizedDescription)\ndownloadURL=\(.downloadURL)\nsize=\(.size)"' >> $GITHUB_OUTPUT
 
-      # Write apps.json safely with jq (escape newlines in localizedDescription)
+      # Write apps.json safely with jq (escape newlines + include top-level source info)
       - name: Update apps.json
         run: |
           jq -n \
@@ -52,6 +52,12 @@ jobs:
             --arg evernotes "${{ steps.everspotify.outputs.notes }}" \
             --arg eversize "${{ steps.everspotify.outputs.size }}" \
             '{
+              name: "MonkeyDLuffy17D Repo",
+              identifier: "com.monkeydluffy17d.source",
+              subtitle: "Latest IPA releases",
+              description: "Paari\'s SideStore source containing YTKACE and EverSpotify.",
+              iconURL: "https://cdn.jsdelivr.net/gh/alohe/memojis/png/notion_11.png",
+              sourceURL: "https://monkeydluffy17d.github.io/sidestore-source/apps.json",
               apps: [
                 {
                   name: "YTKACE",
