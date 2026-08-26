@@ -2,7 +2,7 @@
   "name": "Luffy's App Store",
   "identifier": "com.monkeydluffy17d.source",
   "subtitle": "Curated tweaks & sideloaded apps, updated daily",
-  "description": "A personal collection of my daily-driver sideloaded apps, automatically built and kept up to date.",
+  "description": "My personal SideStore repo packed with the latest builds of my go-to apps.",
   "iconURL": "https://raw.githubusercontent.com/monkeydluffy17d/sidestore-source/refs/heads/main/Images/luffyavatar.png",
   "sourceURL": "https://monkeydluffy17d.github.io/sidestore-source/apps.json",
   "apps": [
