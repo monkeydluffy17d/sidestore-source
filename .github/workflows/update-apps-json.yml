@@ -69,7 +69,13 @@ jobs:
                   "localizedDescription": ($ynotes | gsub("\n"; "\\n")),
                   "iconURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d4/21/29/d4212929-8101-bde8-3b87-06455bed3cb7/Placeholder.mill/400x400bb-75.webp",
                   "tintColor": "FF0000",
-                  "screenshots": [],
+                  "screenshots": [
+                    "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/20/e0/9a/20e09afc-ad0c-bfbe-954b-d5b8d40c5401/91963c43-9224-4e3f-ae6c-ba3ac6de40cd_iOS-6.5-in_1.jpg/460x996bb.webp",
+                    "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/1b/47/80/1b4780c9-4cfd-1295-30c7-cbac2ee9f5d3/30797521-a83b-484b-ba8c-9e70626e258a_iOS-6.5-in_2.jpg/460x996bb.webp",
+                    "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/c2/59/61/c25961a1-a767-cceb-0665-202d8e68d685/5646e7c2-990f-4233-8839-27edda3105e4_iOS-6.5-in_3.jpg/460x996bb.webp",
+                    "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/7d/80/e8/7d80e8b3-6ec8-3634-d6d6-2cbc290363dc/7500778b-8579-41fa-a538-11cce073604b_iOS-6.5-in_4.jpg/460x996bb.webp",
+                    "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/cb/3f/4b/cb3f4bb7-69aa-b669-95e0-953b800bd208/6dbb548a-365f-4c7d-a56c-f41b7be9642c_iOS-6.5-in_5.jpg/460x996bb.webp"
+                   ],
                   "size": ($ysize|tonumber)
                 },
                 {
@@ -82,7 +88,16 @@ jobs:
                   "localizedDescription": ($evernotes | gsub("\n"; "\\n")),
                   "iconURL": "https://files.catbox.moe/9fgova.JPG",
                   "tintColor": "1DB954",
-                  "screenshots": [],
+                  "screenshots": [
+                    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/32/8d/97/328d97d5-1f15-64bb-cd07-9c99caa3df21/IOS_-_6.5_-_S01_-_EN_-_GB.png/300x650bb.webp",
+                    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/78/a7/41/78a74106-c5ed-407f-016a-0e5ec1828022/IOS_-_6.5_-_S02_-_EN_-_GB.png/300x650bb.webp",
+                    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/03/b0/10/03b010df-e0f0-a98c-38dd-3fe51a4faa15/IOS_-_6.5_-_S03_-__U005bEnglish__U0028GB_U0029_U005d.png/300x650bb.webp",
+                    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/5b/f9/f0/5bf9f0c5-fae8-6c74-98a3-47112d9a3fb8/IOS_-_6.5_-_S04_-__U005bEnglish__U0028GB_U0029_U005d.png/300x650bb.webp",
+                    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/13/db/cc/13dbcc4c-dfde-edd3-1489-368afd232f47/IOS_-_6.5_-_S05_-_EN_-_GB.png/300x650bb.webp",
+                    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/60/70/3c/60703c64-cd84-ffc2-c1ac-f7bf951ab2f8/IOS_-_6.5_-_S06_-__U005bEnglish__U0028GB_U0029_U005d.png/300x650bb.webp",
+                    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/18/88/4a/18884ac2-b1da-30ad-af09-560b2f7fea2c/IOS_-_6.5_-_S07_-__U005bEnglish__U0028GB_U0029_U005d.png/300x650bb.webp",
+                    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/8e/a4/3c/8ea43c40-6400-dbb2-8305-d9958986ef67/IOS_-_6.5_-_S08_-__U005bEnglish__U0028GB_U0029_U005d.png/300x650bb.webp"
+                  ],
                   "size": ($eversize|tonumber)
                 }
               ]
