@@ -52,7 +52,7 @@ jobs:
             --arg evernotes "${{ steps.everspotify.outputs.notes }}" \
             --arg eversize "${{ steps.everspotify.outputs.size }}" \
             '{
-              "name": "Luffy's Repo",
+              "name": "Luffy'\''s Repo",
               "identifier": "com.monkeydluffy17d.source",
               "subtitle": "Latest IPA releases",
               "description": "Luffy'\''s SideStore source containing the apps i need.",
