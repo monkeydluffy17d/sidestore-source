@@ -121,6 +121,7 @@ jobs:
           git add apps.json
           if ! git diff --cached --quiet; then
             git commit -m "Update apps.json with latest releases"
+            git pull --rebase origin main
             git push
           else
             echo "No changes to commit"
