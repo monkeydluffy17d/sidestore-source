@@ -110,10 +110,7 @@ jobs:
             --arg yver "${{ steps.ytkace.outputs.youtubeVersion }}" \
             --arg ydate "$YDATE_FMT" \
             --arg yurl "${{ steps.ytkace.outputs.downloadURL }}" \
-            --arg ydesc "An enhanced YouTube client featuring background playback, ad-blocking, and custom overlay options.
-
-✨ Full Changelog & Release History:
-https://github.com/itzzace/ytkace/releases" \
+            --arg ydesc "An enhanced YouTube client featuring background playback, ad-blocking, and custom overlay options.\n\n✨ Full Changelog & Release History:\nhttps://github.com/itzzace/ytkace/releases" \
             --arg yverdesc "${{ steps.ytkace.outputs.notes }}" \
             --arg ysub "Videos, Music and Live Streams" \
             --arg yicon "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d4/21/29/d4212929-8101-bde8-3b87-06455bed3cb7/Placeholder.mill/400x400bb-75.webp" \
