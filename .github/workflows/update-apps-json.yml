@@ -144,6 +144,7 @@ jobs:
           # Add EeveeSpotify if fetch was successful
           if [ "$EEVEE_APP" != "{}" ] && [ ! -z "$EEVEE_APP" ]; then
             echo "✅ Adding scraped EeveeSpotify from SideloadLabs source..."
+            # The scraped app already has the correct bundleIdentifier from SideloadLabs
             APPS=$(echo "$APPS" | jq --argjson eevee "$EEVEE_APP" '. += [$eevee]')
           else
             echo "⚠️  EeveeSpotify not available, using only YTKACE"
