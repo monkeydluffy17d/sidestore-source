@@ -215,10 +215,7 @@ jobs:
           else
             echo "📝 Committing updated apps.json..."
             git add apps.json
-            git commit -m "chore: update apps.json [skip ci]" -m "- YTKACE: ${{ steps.ytkace.outputs.youtubeVersion }}
-- EeveeSpotify: ${{ steps.eeveespotify.outputs.eevee_app }}
-
-Triggered by: ${{ github.event_name }}"
+            git commit -m "chore: update apps.json [skip ci]"
             git push origin main
             echo "✅ Changes pushed"
           fi
