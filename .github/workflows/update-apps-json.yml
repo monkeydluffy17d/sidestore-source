@@ -3,7 +3,7 @@ name: Update SideStore Repo
 on:
   workflow_dispatch:
   schedule:
-    - cron: "30 18 * * *"  # 6:30 PM UTC = Midnight IST
+    - cron: "30 18 * * *"  # Daily at Midnight IST (6:30 PM UTC)
   release:
     types: [published]
   push:
@@ -22,7 +22,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       # ============================================================
-      # Fetch YTKACE release info
+      # Fetch YTKACE latest release
       # ============================================================
       - name: Get YTKACE release info
         id: ytkace
@@ -56,7 +56,7 @@ jobs:
             }
 
       # ============================================================
-      # Fetch EeveeSpotify info from SideloadLabs AltSource
+      # Fetch EeveeSpotify from SideloadLabs AltSource
       # ============================================================
       - name: Get EeveeSpotify release info
         id: eeveespotify
@@ -65,7 +65,7 @@ jobs:
           
           echo "Fetching EeveeSpotify from SideloadLabs source..."
           
-          # Fetch from SideloadLabs AltSource (contains EeveeSpotify)
+          # Fetch from SideloadLabs AltSource
           RESPONSE=$(curl -sf "https://raw.githubusercontent.com/SideloadLabs/SideloasLabs-AltSource/refs/heads/main/apps.json" 2>&1)
           
           if [ -z "$RESPONSE" ]; then
@@ -73,8 +73,7 @@ jobs:
             exit 1
           fi
           
-          # Extract the FIRST EeveeSpotify app (unpatched version)
-          # Use -c to compact output (single line per object)
+          # Extract the FIRST EeveeSpotify app (unpatched version) - compact JSON output
           EEVEE_APP=$(echo "$RESPONSE" | jq -c '.apps[] | select(.name == "EeveeSpotifyReincarnated" and .bundleIdentifier == "com.spotify.client")' 2>/dev/null | head -1)
           
           if [ -z "$EEVEE_APP" ] || [ "$EEVEE_APP" == "null" ]; then
@@ -91,13 +90,13 @@ jobs:
           echo "✅ EeveeSpotify v$VERSION found"
 
       # ============================================================
-      # Generate apps.json by scraping and merging sources
+      # Generate apps.json by merging sources
       # ============================================================
       - name: Update apps.json
         run: |
           set -e
           
-          # Format dates properly
+          # Format YTKACE date
           YDATE_FMT=$(date -d "${{ steps.ytkace.outputs.date }}" +%Y-%m-%d 2>/dev/null || echo "2025-01-01")
           
           # Get the scraped EeveeSpotify app (entire object as JSON)
@@ -111,7 +110,10 @@ jobs:
             --arg yver "${{ steps.ytkace.outputs.youtubeVersion }}" \
             --arg ydate "$YDATE_FMT" \
             --arg yurl "${{ steps.ytkace.outputs.downloadURL }}" \
-            --arg ydesc "An enhanced YouTube client featuring background playback, ad-blocking, and custom overlay options.\n\n✨ Full Changelog & Release History:\nhttps://github.com/itzzace/ytkace/releases" \
+            --arg ydesc "An enhanced YouTube client featuring background playback, ad-blocking, and custom overlay options.
+
+✨ Full Changelog & Release History:
+https://github.com/itzzace/ytkace/releases" \
             --arg yverdesc "${{ steps.ytkace.outputs.notes }}" \
             --arg ysub "Videos, Music and Live Streams" \
             --arg yicon "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d4/21/29/d4212929-8101-bde8-3b87-06455bed3cb7/Placeholder.mill/400x400bb-75.webp" \
@@ -144,7 +146,7 @@ jobs:
           # Add EeveeSpotify if fetch was successful
           if [ "$EEVEE_APP" != "{}" ] && [ ! -z "$EEVEE_APP" ]; then
             echo "✅ Adding scraped EeveeSpotify from SideloadLabs source..."
-            # The scraped app already has the correct bundleIdentifier from SideloadLabs
+            # The scraped app already has correct bundleIdentifier and screenshots from SideloadLabs
             APPS=$(echo "$APPS" | jq --argjson eevee "$EEVEE_APP" '. += [$eevee]')
           else
             echo "⚠️  EeveeSpotify not available, using only YTKACE"
@@ -216,7 +218,10 @@ jobs:
           else
             echo "📝 Committing updated apps.json..."
             git add apps.json
-            git commit -m "chore: update apps.json [skip ci]" -m "- YTKACE: ${{ steps.ytkace.outputs.youtubeVersion }}\n- EeveeSpotify: ${{ steps.eeveespotify.outputs.version }}\n\nTriggered by: ${{ github.event_name }}"
+            git commit -m "chore: update apps.json [skip ci]" -m "- YTKACE: ${{ steps.ytkace.outputs.youtubeVersion }}
+- EeveeSpotify: ${{ steps.eeveespotify.outputs.eevee_app }}
+
+Triggered by: ${{ github.event_name }}"
             git push origin main
             echo "✅ Changes pushed"
           fi
