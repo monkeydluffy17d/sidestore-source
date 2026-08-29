@@ -35,12 +35,31 @@ jobs:
                 repo: "ytkace"
               });
               
-              const asset = release.data.assets.find(a => a.name.toLowerCase().includes(".ipa"));
-              if (!asset) throw new Error("No IPA asset found in YTKACE release");
+              // Find all IPA assets and extract YouTube versions
+              const ipaAssets = release.data.assets.filter(a => a.name.toLowerCase().endsWith(".ipa"));
+              if (ipaAssets.length === 0) throw new Error("No IPA assets found in YTKACE release");
 
-              // Extract YouTube base version from IPA filename (e.g., YouTube_21.33.6.ipa)
-              const youtubeVersion = asset.name.match(/YouTube_(\d+\.\d+\.\d+)/)?.[1];
-              if (!youtubeVersion) throw new Error("Could not parse YouTube version from asset name");
+              // Extract YouTube versions from all IPAs and sort to get the highest version
+              const assetsWithVersions = ipaAssets.map(asset => {
+                const youtubeVersion = asset.name.match(/YouTube_(\d+\.\d+\.\d+)/)?.[1];
+                return { asset, youtubeVersion };
+              }).filter(a => a.youtubeVersion);
+              
+              if (assetsWithVersions.length === 0) throw new Error("Could not parse YouTube version from any IPA");
+
+              // Sort by version number (highest first) and pick the first one
+              assetsWithVersions.sort((a, b) => {
+                const aParts = a.youtubeVersion.split('.').map(Number);
+                const bParts = b.youtubeVersion.split('.').map(Number);
+                for (let i = 0; i < 3; i++) {
+                  if (aParts[i] !== bParts[i]) return bParts[i] - aParts[i];
+                }
+                return 0;
+              });
+
+              const selectedAsset = assetsWithVersions[0];
+              const youtubeVersion = selectedAsset.youtubeVersion;
+              const asset = selectedAsset.asset;
 
               core.setOutput("youtubeVersion", youtubeVersion);
               core.setOutput("tweakVersion", release.data.tag_name);
@@ -49,7 +68,7 @@ jobs:
               core.setOutput("downloadURL", asset.browser_download_url);
               core.setOutput("size", asset.size);
               
-              console.log(`✅ YTKACE: v${youtubeVersion} (${asset.size} bytes)`);
+              console.log(`✅ YTKACE: v${youtubeVersion} (YouTube ${youtubeVersion}) - ${asset.size} bytes`);
             } catch (error) {
               core.setFailed(`YTKACE fetch failed: ${error.message}`);
               throw error;
@@ -110,7 +129,7 @@ jobs:
             --arg yver "${{ steps.ytkace.outputs.youtubeVersion }}" \
             --arg ydate "$YDATE_FMT" \
             --arg yurl "${{ steps.ytkace.outputs.downloadURL }}" \
-            --arg ydesc $'An enhanced YouTube client featuring background playback, ad-blocking, and custom overlay options.\n\n✨ Full Changelog & Release History:\nhttps://github.com/itzzace/ytkace/releases' \
+            --arg ydesc "An enhanced YouTube client featuring background playback, ad-blocking, and custom overlay options.\n\n✨ Full Changelog & Release History:\nhttps://github.com/itzzace/ytkace/releases" \
             --arg yverdesc "${{ steps.ytkace.outputs.notes }}" \
             --arg ysub "Videos, Music and Live Streams" \
             --arg yicon "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d4/21/29/d4212929-8101-bde8-3b87-06455bed3cb7/Placeholder.mill/400x400bb-75.webp" \
