@@ -10,11 +10,11 @@
       "name": "YTKACE",
       "bundleIdentifier": "com.google.ios.youtube",
       "developerName": "itzzace",
-      "version": "21.34.3",
-      "versionDate": "2026-08-29",
-      "downloadURL": "https://github.com/itzzace/ytkace/releases/download/v0.9.1/YTKACE_0.9.1_YouTube_21.34.3.ipa",
+      "version": "21.35.3",
+      "versionDate": "2026-08-31",
+      "downloadURL": "https://github.com/itzzace/ytkace/releases/download/v0.9.2/YTKACE_0.9.2_YouTube_21.35.3.ipa",
       "localizedDescription": "An enhanced YouTube client featuring background playback, ad-blocking, and custom overlay options.\\n\\n✨ Full Changelog & Release History:\\nhttps://github.com/itzzace/ytkace/releases",
-      "versionDescription": "by @itzzace0\n\nWhat’s new:\n• Updated for YouTube 21.34.3\n• Added a default startup tab option, so YouTube can open on any tab you choose\n• Added a Shorts session limit that stops endless scrolling after a set number\n\nFixed:\n• Fixed Save to Photos silently doing nothing, and it now confirms when a video is saved\n• Fixed Save to Photos on large videos, and it now explains when Photos cannot store the format\n• Fixed backing up settings producing an empty file with nothing in it\n• Reduced feed scrolling lag from Remove Products, Shorts, Mixes and Community Posts\n\nYouTube 21.34.3 requires iOS 17, so there are two IPAs:\n•  for iOS 17 and newer\n•  for iOS 16\n",
+      "versionDescription": "by @itzzace0\n\nWhat’s new:\n• Updated for YouTube 21.35.3\n• Added a save button to community post images, saved at full resolution\n• Added Posts to the tab bar, so it can be shown as a tab or set as the startup tab\n• Added a choice of where downloads are saved, between the YTKACE library, Photos, or asking each time\n• Added a custom hold speed with a slider from 0.25x to 5x, and the speed pill now shows the speed you set\n• Added a toggle to remove the ⋯ button from the action bar\n• Added a toggle to remove the row of buttons under the progress bar in fullscreen\n• Added a toggle to limit gestures to landscape only\n\nFixed:\n• Fixed the app freezing while saving large videos to Photos\n• Fixed tapping an image in the comments opening the share sheet\n• Fixed a crash when rotating the player\n• Fixed a crash when leaving the app while a message was on screen\n\nYouTube 21.35.3 requires iOS 17, so there are two IPAs:\n•  for iOS 17 and newer\n•  for iOS 16\n",
       "subtitle": "Videos, Music and Live Streams",
       "iconURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d4/21/29/d4212929-8101-bde8-3b87-06455bed3cb7/Placeholder.mill/400x400bb-75.webp",
       "tintColor": "FF0000",
@@ -25,7 +25,7 @@
         "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/7d/80/e8/7d80e8b3-6ec8-3634-d6d6-2cbc290363dc/7500778b-8579-41fa-a538-11cce073604b_iOS-6.5-in_4.jpg/460x996bb.webp",
         "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/cb/3f/4b/cb3f4bb7-69aa-b669-95e0-953b800bd208/6dbb548a-365f-4c7d-a56c-f41b7be9642c_iOS-6.5-in_5.jpg/460x996bb.webp"
       ],
-      "size": 133752298
+      "size": 134278975
     },
     {
       "name": "EeveeSpotifyReincarnated",
