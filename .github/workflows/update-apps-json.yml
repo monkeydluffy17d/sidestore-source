@@ -124,7 +124,7 @@ jobs:
           # Build apps array starting with YTKACE
           APPS=$(jq -n \
             --arg yname "YTKACE" \
-            --arg ybid "com.itzzace.ytkace" \
+            --arg ybid "com.google.ios.youtube" \
             --arg ydev "itzzace" \
             --arg yver "${{ steps.ytkace.outputs.youtubeVersion }}" \
             --arg ydate "$YDATE_FMT" \
