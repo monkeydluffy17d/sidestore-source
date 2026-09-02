@@ -124,7 +124,7 @@ jobs:
           # Build apps array starting with YTKACE
           APPS=$(jq -n \
             --arg yname "YTKACE" \
-            --arg ybid "com.google.ios.youtube" \
+            --arg ybid "com.itzzace.ytkace" \
             --arg ydev "itzzace" \
             --arg yver "${{ steps.ytkace.outputs.youtubeVersion }}" \
             --arg ydate "$YDATE_FMT" \
@@ -173,10 +173,16 @@ jobs:
           # Add EeveeSpotify if fetch was successful
           if [ "$EEVEE_APP" != "{}" ] && [ ! -z "$EEVEE_APP" ]; then
             echo "✅ Adding scraped EeveeSpotify from SideloadLabs source..."
-            # Add the scraped app and override screenshots + add changelog link to description
+            # Add the scraped app and override screenshots + add changelog link to description + exclude extensions
             APPS=$(echo "$APPS" | jq --argjson eevee "$EEVEE_APP" '. += [$eevee | 
               .subtitle = "Songs, Playlists & Audiobooks" |
               .localizedDescription = (.localizedDescription + "\n\n✨ Full Changelog & Release History:\nhttps://github.com/SideloadLabs/EeveeSpotifyReincarnated/releases") |
+              .excludedBundleIdentifiers = [
+                "com.spotify.client.NotificationContentExtension",
+                "com.spotify.client.NotificationServiceExtension",
+                "com.spotify.client.IntentsExtension",
+                "com.spotify.client.WidgetKitExtension"
+              ] |
               .screenshots = [
                 "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/32/8d/97/328d97d5-1f15-64bb-cd07-9c99caa3df21/IOS_-_6.5_-_S01_-_EN_-_GB.png/300x650bb.webp",
                 "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/78/a7/41/78a74106-c5ed-407f-016a-0e5ec1828022/IOS_-_6.5_-_S02_-_EN_-_GB.png/300x650bb.webp",
