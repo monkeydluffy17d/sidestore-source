@@ -8,7 +8,7 @@
   "apps": [
     {
       "name": "YTKACE",
-      "bundleIdentifier": "com.google.ios.youtube",
+      "bundleIdentifier": "com.itzzace.ytkace",
       "developerName": "itzzace",
       "version": "21.35.3",
       "versionDate": "2026-08-31",
@@ -51,6 +51,12 @@
       "version": "9.1.76",
       "versionDate": "2026-08-20",
       "versionDescription": "Updated to Spotify v9.1.76, Full release notes on github",
+      "excludedBundleIdentifiers": [
+        "com.spotify.client.NotificationContentExtension",
+        "com.spotify.client.NotificationServiceExtension",
+        "com.spotify.client.IntentsExtension",
+        "com.spotify.client.WidgetKitExtension"
+      ],
       "screenshots": [
         "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/32/8d/97/328d97d5-1f15-64bb-cd07-9c99caa3df21/IOS_-_6.5_-_S01_-_EN_-_GB.png/300x650bb.webp",
         "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/78/a7/41/78a74106-c5ed-407f-016a-0e5ec1828022/IOS_-_6.5_-_S02_-_EN_-_GB.png/300x650bb.webp",
