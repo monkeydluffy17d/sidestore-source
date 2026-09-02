@@ -148,6 +148,17 @@ jobs:
                 "subtitle": $ysub,
                 "iconURL": $yicon,
                 "tintColor": $ytint,
+                "excludedBundleIdentifiers": [
+                  "com.google.ios.youtube.NotificationContentExtension",
+                  "com.google.ios.youtube.NotificationServiceExtension",
+                  "com.itzzace.ytkace.NotificationContentExtension",
+                  "com.itzzace.ytkace.NotificationServiceExtension",
+                  "com.google.ios.youtube.ExternalShareExtension",
+                  "com.google.ios.youtube.IntentsExtension",
+                  "com.google.ios.youtube.WidgetKitExtension",
+                  "com.itzzace.ytkace.6Q49WWW492.NotificationContentExtension",
+                  "com.itzzace.ytkace.6Q49WWW492.NotificationServiceExtension"
+                ],
                 "screenshots": [
                   "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/20/e0/9a/20e09afc-ad0c-bfbe-954b-d5b8d40c5401/91963c43-9224-4e3f-ae6c-ba3ac6de40cd_iOS-6.5-in_1.jpg/460x996bb.webp",
                   "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/1b/47/80/1b4780c9-4cfd-1295-30c7-cbac2ee9f5d3/30797521-a83b-484b-ba8c-9e70626e258a_iOS-6.5-in_2.jpg/460x996bb.webp",
