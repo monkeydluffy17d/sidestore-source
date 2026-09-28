@@ -10,11 +10,11 @@
       "name": "YTKACE",
       "bundleIdentifier": "com.google.ios.youtube",
       "developerName": "itzzace",
-      "version": "21.38.3",
-      "versionDate": "2026-09-26",
-      "downloadURL": "https://github.com/monkeydluffy17d/sidestore-source/releases/download/stripped-v1.1.0/YTKACE_v1.1.0_YouTube_21.38.3_stripped.ipa",
+      "version": "21.39.4",
+      "versionDate": "2026-09-28",
+      "downloadURL": "https://github.com/monkeydluffy17d/sidestore-source/releases/download/stripped-v1.1.1/YTKACE_v1.1.1_YouTube_21.39.4_stripped.ipa",
       "localizedDescription": "An enhanced YouTube client featuring background playback, ad-blocking, and custom overlay options.\\n\\n**Note:** This version has embedded extensions removed to save App IDs on free accounts.\\n\\n✨ Full Changelog & Release History:\\nhttps://github.com/itzzace/ytkace/releases",
-      "versionDescription": "by @itzzace0\n\nWhat's new:\n• Updated to YouTube 21.38.3\n• Redesigned the YTKACE library player with a floating mini player, PiP and YouTube style controls\n• SponsorBlock now skips segments in downloaded videos\n• New Download Method option with Direct downloads\n• Modify YouTube's video zoom\n• Keep Shorts in Subscriptions\n• Option to disable PiP for Shorts\n• Speed menu button\n• Options to disable HDR, remove 1080p Premium and set a separate Shorts speed\n• Layout mode option\n• Choose the subtitle language for downloads\n\nFixed:\n• PiP not working for music videos\n• Gap left by hidden comment guidelines, topic chips and community posts\n• Download and queue buttons on older YouTube versions\n• Autoplay in queues\n• Improved Playback Fix and download retrying\n\nThanks to @Ganeron11 and @kes158 for contributions\n\nYouTube 21.38.3 requires iOS 17, so there are two IPAs:\n•  for iOS 17 and newer\n•  for iOS 16\n",
+      "versionDescription": "by @itzzace0\n\nWhat's new:\n• Updated to YouTube 21.39.4\n• Liquid Glass on iOS 26 for the tab bar, top bar buttons, menus, sheets, player buttons and YTKACE popups\n• Liquid Glass settings page with a toggle for each part\n• Selected Tab Color for the tab text or the text and icon\n• Added HLS mode in Playback Fix\n• Added 5x speed in the speed menu\n• Improved native share sheet\n\nFixed:\n• Multiple scrubber dots on feed videos with a custom scrubber\n• Direct downloads using an outdated client\n\nYouTube 21.39.4 requires iOS 17, so there are two IPAs:\n•  for iOS 17 and newer\n•  for iOS 16\n",
       "subtitle": "Videos, Music and Live Streams",
       "iconURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d4/21/29/d4212929-8101-bde8-3b87-06455bed3cb7/Placeholder.mill/400x400bb-75.webp",
       "tintColor": "FF0000",
@@ -25,7 +25,7 @@
         "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/7d/80/e8/7d80e8b3-6ec8-3634-d6d6-2cbc290363dc/7500778b-8579-41fa-a538-11cce073604b_iOS-6.5-in_4.jpg/460x996bb.webp",
         "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/cb/3f/4b/cb3f4bb7-69aa-b669-95e0-953b800bd208/6dbb548a-365f-4c7d-a56c-f41b7be9642c_iOS-6.5-in_5.jpg/460x996bb.webp"
       ],
-      "size": 131570416
+      "size": 131552131
     },
     {
       "name": "EeveeSpotifyReincarnated",
