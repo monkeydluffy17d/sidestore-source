@@ -31,15 +31,24 @@
       "name": "EeveeSpotifyReincarnated",
       "bundleIdentifier": "com.spotify.client",
       "developerName": "SideloadLabs",
-      "downloadURL": "https://files.catbox.moe/1qbbn8.ipa",
+      "downloadURL": "https://files.catbox.moe/x7l9ca.ipa",
       "iconURL": "https://files.catbox.moe/9fgova.JPG",
-      "localizedDescription": "Spotify Version: v9.1.76, EeveeSpotify Version: 6.6.8(2) Unpatched Version, pls use this if on Altstore/Sidestore, free cert\n\n✨ Full Changelog & Release History:\nhttps://github.com/SideloadLabs/EeveeSpotifyReincarnated/releases",
+      "localizedDescription": "Spotify Version: v9.1.88, EeveeSpotify Version: 7.0.0 Unpatched Version, pls use this if on Altstore/Sidestore, free cert\n\n✨ Full Changelog & Release History:\nhttps://github.com/SideloadLabs/EeveeSpotifyReincarnated/releases",
       "size": 130000000,
       "subtitle": "Songs, Playlists & Audiobooks",
       "tintColor": "1DB954",
-      "version": "9.1.76",
-      "versionDate": "2026-08-20",
-      "versionDescription": "Updated to Spotify v9.1.76, Full release notes on github",
+      "version": "9.1.88",
+      "versionDate": "2026-10-05",
+      "versionDescription": "Updated to Spotify v9.1.88, Full release notes on github",
+      "versions": [
+        {
+          "version": "9.1.88",
+          "date": "2026-10-05",
+          "localizedDescription": "Updated to Spotify v9.1.88, Full release notes on github",
+          "downloadURL": "https://files.catbox.moe/x7l9ca.ipa",
+          "size": 130000000
+        }
+      ],
       "screenshots": [
         "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/32/8d/97/328d97d5-1f15-64bb-cd07-9c99caa3df21/IOS_-_6.5_-_S01_-_EN_-_GB.png/300x650bb.webp",
         "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/78/a7/41/78a74106-c5ed-407f-016a-0e5ec1828022/IOS_-_6.5_-_S02_-_EN_-_GB.png/300x650bb.webp",
