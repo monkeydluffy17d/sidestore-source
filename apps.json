@@ -10,11 +10,11 @@
       "name": "YTKACE",
       "bundleIdentifier": "com.google.ios.youtube",
       "developerName": "itzzace",
-      "version": "21.41.5",
-      "versionDate": "2026-10-11",
-      "downloadURL": "https://github.com/monkeydluffy17d/sidestore-source/releases/download/stripped-v1.1.3/YTKACE_v1.1.3_YouTube_21.41.5_stripped.ipa",
+      "version": "21.42.4",
+      "versionDate": "2026-10-25",
+      "downloadURL": "https://github.com/monkeydluffy17d/sidestore-source/releases/download/stripped-v1.1.4/YTKACE_v1.1.4_YouTube_21.42.4_stripped.ipa",
       "localizedDescription": "An enhanced YouTube client featuring background playback, ad-blocking, and custom overlay options.\\n\\n**Note:** This version has embedded extensions removed to save App IDs on free accounts.\\n\\n✨ Full Changelog & Release History:\\nhttps://github.com/itzzace/ytkace/releases",
-      "versionDescription": "by @itzzace0\n\nWhat's new:\n• Updated to YouTube 21.41.5\n• Added Hide AI Channels, which hides videos from channels on the AiSList blocklist in your feed and search, with an option for the warnlist too\n• Swipe the SponsorBlock popup away to dismiss it\n\nFixed:\n• Shorts download button sometimes missing on the new Shorts UI\n• Auto-Skip and Play Shorts Once not working on the new Shorts UI\n• Pinch to fullscreen in Shorts freezing or starting the next Short\n• Loop button not looping when Local Queue is on\n• SponsorBlock popup not fading in\n• Chapter pill in the player sometimes not getting Liquid Glass\n\nYouTube 21.41.5 requires iOS 17, so there are two IPAs:\n•  for iOS 17 and newer\n•  for iOS 16\n",
+      "versionDescription": "by @itzzace0\n\nWhat's new:\n• Updated to YouTube 21.42.4\n• Added a SponsorBlock button to the player to whitelist channels, vote on segments and submit new ones\n• Added Report AI Channels to report channels to AiSList from the ⋯ menu\n• Added Clean Copied Links to remove tracking like si= from links you copy or share\n• Added options to remove items from the ⋯ menu\n• Added Tab Bar options for Liquid Glass: Default, YTKACE, YouTube or Off\n• Added Keep Shorts in Home, Search and on Channels\n\nFixed:\n• Remove Previous/Next not working in playlists\n• Blank space left when fullscreen actions are hidden\n• Remove Mixes missing some mixes\n\nYouTube 21.42.4 requires iOS 17, so there are two IPAs:\n•  for iOS 17 and newer\n•  for iOS 16\n",
       "subtitle": "Videos, Music and Live Streams",
       "iconURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d4/21/29/d4212929-8101-bde8-3b87-06455bed3cb7/Placeholder.mill/400x400bb-75.webp",
       "tintColor": "FF0000",
@@ -25,7 +25,7 @@
         "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/7d/80/e8/7d80e8b3-6ec8-3634-d6d6-2cbc290363dc/7500778b-8579-41fa-a538-11cce073604b_iOS-6.5-in_4.jpg/460x996bb.webp",
         "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/cb/3f/4b/cb3f4bb7-69aa-b669-95e0-953b800bd208/6dbb548a-365f-4c7d-a56c-f41b7be9642c_iOS-6.5-in_5.jpg/460x996bb.webp"
       ],
-      "size": 132428286
+      "size": 133289275
     },
     {
       "name": "EeveeSpotifyReincarnated",
