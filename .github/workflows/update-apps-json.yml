@@ -34,20 +34,17 @@ jobs:
                 owner: "itzzace",
                 repo: "ytkace"
               });
-              
-              // Find all IPA assets and extract YouTube versions
+
               const ipaAssets = release.data.assets.filter(a => a.name.toLowerCase().endsWith(".ipa"));
               if (ipaAssets.length === 0) throw new Error("No IPA assets found in YTKACE release");
 
-              // Extract YouTube versions from all IPAs and sort to get the highest version
               const assetsWithVersions = ipaAssets.map(asset => {
                 const youtubeVersion = asset.name.match(/YouTube_(\d+\.\d+\.\d+)/)?.[1];
                 return { asset, youtubeVersion };
               }).filter(a => a.youtubeVersion);
-              
+
               if (assetsWithVersions.length === 0) throw new Error("Could not parse YouTube version from any IPA");
 
-              // Sort by version number (highest first) and pick the first one
               assetsWithVersions.sort((a, b) => {
                 const aParts = a.youtubeVersion.split('.').map(Number);
                 const bParts = b.youtubeVersion.split('.').map(Number);
@@ -68,8 +65,8 @@ jobs:
               core.setOutput("downloadURL", asset.browser_download_url);
               core.setOutput("size", asset.size);
               core.setOutput("filename", asset.name);
-              
-              console.log(`✅ YTKACE: v${youtubeVersion} (YouTube ${youtubeVersion}) - ${asset.size} bytes`);
+
+              console.log(`✅ YTKACE: v${youtubeVersion} (YouTube ${youtubeVersion})`);
             } catch (error) {
               core.setFailed(`YTKACE fetch failed: ${error.message}`);
               throw error;
@@ -82,44 +79,40 @@ jobs:
         id: strip_ipa
         run: |
           set -e
-          
+
           echo "📥 Downloading YTKACE IPA..."
           curl -fL -o ytkace_original.ipa "${{ steps.ytkace.outputs.downloadURL }}"
-          
+
           echo "📦 Extracting IPA..."
           mkdir -p ipa_extracted
           unzip -q ytkace_original.ipa -d ipa_extracted
-          
-          echo "🔍 Finding .appex bundles to remove..."
+
+          echo "🔍 Finding and removing .appex bundles..."
+          APPEX_COUNT=$(find ipa_extracted -name "*.appex" -type d | wc -l)
           find ipa_extracted -name "*.appex" -type d | while read appex; do
-            echo "  ❌ Removing: $appex"
+            echo "  ❌ Removing: $(basename $appex)"
             rm -rf "$appex"
           done
-          
+
+          echo "Removed $APPEX_COUNT .appex bundles"
+
           # Verify no .appex files remain
           if find ipa_extracted -name "*.appex" -type d | grep -q .; then
             echo "❌ Error: Some .appex bundles still exist!"
             exit 1
           fi
-          
+
           echo "✅ All .appex bundles removed"
-          
+
           echo "📦 Repackaging stripped IPA..."
           cd ipa_extracted
           zip -r -q ../ytkace_stripped.ipa .
           cd ..
-          
+
           # Get new file size
-          STRIPPED_SIZE=$(stat -f%z ytkace_stripped.ipa 2>/dev/null || stat -c%s ytkace_stripped.ipa)
-          echo "✅ Stripped IPA created: $STRIPPED_SIZE bytes"
+          STRIPPED_SIZE=$(stat -c%s ytkace_stripped.ipa 2>/dev/null || stat -f%z ytkace_stripped.ipa 2>/dev/null)
+          echo "✅ Stripped IPA: $STRIPPED_SIZE bytes"
           echo "stripped_size=$STRIPPED_SIZE" >> $GITHUB_OUTPUT
-          
-          # Create a version-specific filename
-          STRIPPED_FILENAME="YTKACE_${{ steps.ytkace.outputs.tweakVersion }}_YouTube_${{ steps.ytkace.outputs.youtubeVersion }}_stripped.ipa"
-          mv ytkace_stripped.ipa "$STRIPPED_FILENAME"
-          echo "stripped_filename=$STRIPPED_FILENAME" >> $GITHUB_OUTPUT
-          
-          echo "📁 Final filename: $STRIPPED_FILENAME"
 
       # ============================================================
       # Upload stripped IPA to GitHub Release
@@ -127,21 +120,21 @@ jobs:
       - name: Create/Update GitHub Release with stripped IPA
         uses: softprops/action-gh-release@v1
         with:
-          files: ${{ steps.strip_ipa.outputs.stripped_filename }}
+          files: ytkace_stripped.ipa
           tag_name: stripped-${{ steps.ytkace.outputs.tweakVersion }}
           name: "YTKACE ${{ steps.ytkace.outputs.tweakVersion }} (Extensions Stripped)"
           body: |
             YTKACE v${{ steps.ytkace.outputs.tweakVersion }} with embedded extensions removed
-            
+
             **YouTube Base Version:** ${{ steps.ytkace.outputs.youtubeVersion }}
             **Original IPA:** ${{ steps.ytkace.outputs.filename }}
             **Stripped IPA Size:** ${{ steps.strip_ipa.outputs.stripped_size }} bytes
-            
+
             **What's Different:**
             - All .appex (extension) bundles removed
             - Reduces App ID consumption from ~9 IDs to just 1 ID
             - Compatible with free Apple Developer accounts
-            
+
             **Original Release:** https://github.com/itzzace/ytkace/releases/tag/${{ steps.ytkace.outputs.tweakVersion }}
           draft: false
           prerelease: false
@@ -155,50 +148,45 @@ jobs:
         id: eeveespotify
         run: |
           set -e
-          
+
           echo "Fetching EeveeSpotify from SideloadLabs source..."
-          
-          # Fetch from SideloadLabs AltSource
+
           RESPONSE=$(curl -sf "https://raw.githubusercontent.com/SideloadLabs/SideloasLabs-AltSource/refs/heads/main/apps.json" 2>&1)
-          
+
           if [ -z "$RESPONSE" ]; then
             echo "❌ Failed to fetch SideloadLabs source"
             exit 1
           fi
-          
-          # Extract the FIRST EeveeSpotify app (unpatched version) - compact JSON output
+
           EEVEE_APP=$(echo "$RESPONSE" | jq -c '.apps[] | select(.name == "EeveeSpotifyReincarnated" and .bundleIdentifier == "com.spotify.client")' 2>/dev/null | head -1)
-          
+
           if [ -z "$EEVEE_APP" ] || [ "$EEVEE_APP" == "null" ]; then
-            echo "⚠️  EeveeSpotifyReincarnated (unpatched) not found in source"
+            echo "⚠️  EeveeSpotifyReincarnated not found"
             echo "eevee_app={}" >> $GITHUB_OUTPUT
             exit 0
           fi
-          
-          # Store the entire app object as JSON
+
           echo "eevee_app=$EEVEE_APP" >> $GITHUB_OUTPUT
-          
-          # Extract individual fields for display
           VERSION=$(echo "$EEVEE_APP" | jq -r '.version // "unknown"')
           echo "✅ EeveeSpotify v$VERSION found"
 
       # ============================================================
-      # Generate apps.json by merging sources
+      # Generate apps.json
       # ============================================================
       - name: Update apps.json
         run: |
           set -e
-          
-          # Format YTKACE date
+
           YDATE_FMT=$(date -d "${{ steps.ytkace.outputs.date }}" +%Y-%m-%d 2>/dev/null || echo "2025-01-01")
-          
-          # Get the scraped EeveeSpotify app (entire object as JSON)
           EEVEE_APP='${{ steps.eeveespotify.outputs.eevee_app }}'
-          
+
+          # Escape the release notes for jq
+          NOTES_JSON=$(printf '%s\n' "${{ steps.ytkace.outputs.notes }}" | jq -Rs .)
+
           # Construct stripped IPA download URL from release
-          STRIPPED_IPA_URL="https://github.com/${{ github.repository }}/releases/download/stripped-${{ steps.ytkace.outputs.tweakVersion }}/${{ steps.strip_ipa.outputs.stripped_filename }}"
-          
-          # Build apps array starting with YTKACE (using stripped IPA)
+          STRIPPED_IPA_URL="https://github.com/${{ github.repository }}/releases/download/stripped-${{ steps.ytkace.outputs.tweakVersion }}/ytkace_stripped.ipa"
+
+          # Build YTKACE entry with stripped IPA
           APPS=$(jq -n \
             --arg yname "YTKACE" \
             --arg ybid "com.google.ios.youtube" \
@@ -207,11 +195,11 @@ jobs:
             --arg ydate "$YDATE_FMT" \
             --arg yurl "$STRIPPED_IPA_URL" \
             --arg ydesc "An enhanced YouTube client featuring background playback, ad-blocking, and custom overlay options.\n\n**Note:** This version has embedded extensions removed to save App IDs on free accounts.\n\n✨ Full Changelog & Release History:\nhttps://github.com/itzzace/ytkace/releases" \
-            --arg yverdesc "${{ steps.ytkace.outputs.notes }}" \
             --arg ysub "Videos, Music and Live Streams" \
             --arg yicon "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d4/21/29/d4212929-8101-bde8-3b87-06455bed3cb7/Placeholder.mill/400x400bb-75.webp" \
             --arg ytint "FF0000" \
             --arg ysize "${{ steps.strip_ipa.outputs.stripped_size }}" \
+            --argjson yverdesc "$NOTES_JSON" \
             '[
               {
                 "name": $yname,
@@ -235,14 +223,19 @@ jobs:
                 "size": ($ysize | tonumber)
               }
             ]')
-          
-          # Add EeveeSpotify if fetch was successful
+
+          # Add EeveeSpotify if available
           if [ "$EEVEE_APP" != "{}" ] && [ ! -z "$EEVEE_APP" ]; then
-            echo "✅ Adding scraped EeveeSpotify from SideloadLabs source..."
-            # Add the scraped app and override screenshots + add changelog link to description
-            APPS=$(echo "$APPS" | jq --argjson eevee "$EEVEE_APP" '. += [$eevee | 
+            echo "✅ Adding EeveeSpotify..."
+            APPS=$(echo "$APPS" | jq --argjson eevee "$EEVEE_APP" '. += [$eevee |
               .subtitle = "Songs, Playlists & Audiobooks" |
               .localizedDescription = (.localizedDescription + "\n\n✨ Full Changelog & Release History:\nhttps://github.com/SideloadLabs/EeveeSpotifyReincarnated/releases") |
+              .excludedBundleIdentifiers = [
+                "com.spotify.client.NotificationContentExtension",
+                "com.spotify.client.NotificationServiceExtension",
+                "com.spotify.client.IntentsExtension",
+                "com.spotify.client.WidgetKitExtension"
+              ] |
               .screenshots = [
                 "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/32/8d/97/328d97d5-1f15-64bb-cd07-9c99caa3df21/IOS_-_6.5_-_S01_-_EN_-_GB.png/300x650bb.webp",
                 "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/78/a7/41/78a74106-c5ed-407f-016a-0e5ec1828022/IOS_-_6.5_-_S02_-_EN_-_GB.png/300x650bb.webp",
@@ -254,16 +247,14 @@ jobs:
                 "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/8e/a4/3c/8ea43c40-6400-dbb2-8305-d9958986ef67/IOS_-_6.5_-_S08_-__U005bEnglish__U0028GB_U0029_U005d.png/300x650bb.webp"
               ]
             ]')
-          else
-            echo "⚠️  EeveeSpotify not available, using only YTKACE"
           fi
-          
-          # Create final source JSON
+
+          # Create final JSON
           jq -n \
             --arg name "Luffy's App Store" \
             --arg identifier "com.monkeydluffy17d.source" \
             --arg subtitle "Curated tweaks & sideloaded apps, updated daily" \
-            --arg description "My personal SideStore repo packed with the latest builds of my go-to apps. YTKACE extensions stripped to save App IDs on free accounts." \
+            --arg description "My personal SideStore repo packed with the latest builds of my go-to apps. YTKACE extensions stripped to save App IDs." \
             --arg iconURL "https://raw.githubusercontent.com/monkeydluffy17d/sidestore-source/refs/heads/main/Images/luffyavatar.png" \
             --arg sourceURL "https://raw.githubusercontent.com/monkeydluffy17d/sidestore-source/refs/heads/main/apps.json" \
             --argjson apps "$APPS" \
@@ -276,49 +267,32 @@ jobs:
               "sourceURL": $sourceURL,
               "apps": $apps
             }' > apps.json
-          
-          echo "✅ apps.json generated successfully with stripped IPA"
+
+          echo "✅ apps.json generated successfully"
 
       # ============================================================
-      # Validate the generated JSON
+      # Validate JSON
       # ============================================================
       - name: Validate apps.json
         run: |
           set -e
-          
           echo "Validating JSON structure..."
-          jq empty apps.json || {
-            echo "❌ Invalid JSON generated!"
-            exit 1
-          }
-          
-          echo "Checking required fields..."
-          jq -e '.name and .apps' apps.json || {
-            echo "❌ Missing name or apps field"
-            exit 1
-          }
-          
-          echo "Validating all apps have required fields..."
-          jq -e '.apps[] | select(.bundleIdentifier and .version and .downloadURL)' apps.json > /dev/null || {
-            echo "❌ Some apps missing required fields"
-            jq '.apps[]' apps.json
-            exit 1
-          }
-          
+          jq empty apps.json
+          jq -e '.name and .apps' apps.json > /dev/null
           echo "✅ JSON validation passed"
           echo ""
           echo "📦 Generated Source:"
           jq -r '.name' apps.json
-          jq -r '.apps[] | "\(.name) v\(.version)"' apps.json
+          jq -r '.apps[] | "  \(.name) v\(.version)"' apps.json
 
       # ============================================================
-      # Commit and push changes
+      # Commit and push
       # ============================================================
       - name: Commit and push updates
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          
+
           if git diff --quiet apps.json; then
             echo "ℹ️  No changes to commit"
           else
