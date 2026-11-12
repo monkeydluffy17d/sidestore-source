@@ -12,9 +12,9 @@
       "developerName": "itzzace",
       "version": "21.45.4",
       "versionDate": "2026-11-10",
-      "downloadURL": "https://github.com/monkeydluffy17d/sidestore-source/releases/download/stripped-v1.1.6/ytkace_stripped.ipa",
+      "downloadURL": "https://github.com/monkeydluffy17d/sidestore-source/releases/download/stripped-v1.1.7/ytkace_stripped.ipa",
       "localizedDescription": "An enhanced YouTube client featuring background playback, ad-blocking, and custom overlay options.\\n\\n**Note:** This version has embedded extensions removed to save App IDs on free accounts.\\n\\n✨ Full Changelog & Release History:\\nhttps://github.com/itzzace/ytkace/releases",
-      "versionDescription": "by @itzzace0\n\n1,000 stars 🎉\nThanks for 1k stars! To celebrate, FlareStore is sponsoring a giveaway of 5 certificates in the new YTKACE Telegram channel: https://t.me/ytkace\n\nWhat's new:\n• Updated to YouTube 21.45.4\n• Button Layout: drag the player buttons into YouTube's top row, the row under it, or next to the fullscreen button\n• Added a Quality Button that shows the current quality\n• Added Auto Fullscreen and Exit Fullscreen at End\n• Added Swipe to Seek\n• Added Previous/Next Skip\n• Added Keep Playing, which stops the Continue\nwatching? pause\n• Added a Playlist tab\n• Added a default video quality and audio language for downloads\n• Added Remove Live Videos from Home\n• Added an Auto-Scroll Delay for Shorts\n• Added a minimum segment length to SponsorBlock\n• Added iPhone Duo layouts\n\nFixed:\n• Tabs not switching when Home is hidden\n• Live streams counted as finished in the queue\n• Auto-scroll skipping Shorts before they end\n• Show Status Bar in Fullscreen not working\n• Invisible back button with OLED in light mode\n• HLS Streams not falling back when a video fails\n• Tab icons and labels on vertical tab bars\n\nYouTube 21.45.4 requires iOS 17, so there are two IPAs:\n•  for iOS 17 and newer\n•  for iOS 16\n\n",
+      "versionDescription": "by @itzzace0\n\n1,000 stars 🎉\nThanks for 1k stars! To celebrate, [FlareStore](https://flarestore.vip/p/ytkace) is sponsoring a giveaway of 5 certificates in the new YTKACE Telegram channel: https://t.me/ytkace\n\nWhat's new:\n• Updated to YouTube 21.45.4\n• Button Layout: drag the player buttons into YouTube's top row, the row under it, or next to the fullscreen button\n• Added a Quality Button that shows the current quality\n• Added Auto Fullscreen and Exit Fullscreen at End\n• Added Swipe to Seek\n• Added Previous/Next Skip\n• Added Keep Playing, which stops the Continue\nwatching? pause\n• Added a Playlist tab\n• Added a default video quality and audio language for downloads\n• Added Remove Live Videos from Home\n• Added an Auto-Scroll Delay for Shorts\n• Added a minimum segment length to SponsorBlock\n• Added iPhone Duo layouts\n\nFixed:\n• Videos missing from Home on some accounts\n• Lock screen scrubbing and skip not working for downloads\n• Tabs not switching when Home is hidden\n• Live streams counted as finished in the queue\n• Auto-scroll skipping Shorts before they end\n• Show Status Bar in Fullscreen not working\n• Invisible back button with OLED in light mode\n• HLS Streams not falling back when a video fails\n• Tab icons and labels on vertical tab bars\n\nYouTube 21.45.4 requires iOS 17, so there are two IPAs:\n•  for iOS 17 and newer\n•  for iOS 16\n\n\n",
       "subtitle": "Videos, Music and Live Streams",
       "iconURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d4/21/29/d4212929-8101-bde8-3b87-06455bed3cb7/Placeholder.mill/400x400bb-75.webp",
       "tintColor": "FF0000",
@@ -25,7 +25,7 @@
         "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/7d/80/e8/7d80e8b3-6ec8-3634-d6d6-2cbc290363dc/7500778b-8579-41fa-a538-11cce073604b_iOS-6.5-in_4.jpg/460x996bb.webp",
         "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/cb/3f/4b/cb3f4bb7-69aa-b669-95e0-953b800bd208/6dbb548a-365f-4c7d-a56c-f41b7be9642c_iOS-6.5-in_5.jpg/460x996bb.webp"
       ],
-      "size": 135445363
+      "size": 135446479
     },
     {
       "name": "EeveeSpotifyReincarnated",
