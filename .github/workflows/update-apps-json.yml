@@ -15,6 +15,10 @@ on:
 permissions:
   contents: write  # needed for git push, release upload, and release cleanup
 
+concurrency:
+  group: update-sidestore-source
+  cancel-in-progress: false  # queue overlapping runs instead of racing on git push
+
 jobs:
   update-json:
     runs-on: ubuntu-latest
@@ -205,7 +209,7 @@ jobs:
           APPS=$(jq -n \
             --arg ybid "com.google.ios.youtube" \
             --arg ydev "itzzace" \
-            --arg yver "$YT_VERSION" \
+            --arg yver "${YT_VERSION}-${YT_TAG#v}" \
             --arg ydate "$YDATE_FMT" \
             --arg yurl "$YURL" \
             --arg ydesc $'An enhanced YouTube client featuring background playback, ad-blocking, and custom overlay options.\n\n**Note:** This version has embedded extensions removed to save App IDs on free accounts.\n\n✨ Full Changelog & Release History:\nhttps://github.com/itzzace/ytkace/releases' \
@@ -227,6 +231,7 @@ jobs:
                 "subtitle": $ysub,
                 "iconURL": $yicon,
                 "tintColor": $ytint,
+                "minOSVersion": "17.0",
                 "screenshots": [
                   "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/20/e0/9a/20e09afc-ad0c-bfbe-954b-d5b8d40c5401/91963c43-9224-4e3f-ae6c-ba3ac6de40cd_iOS-6.5-in_1.jpg/460x996bb.webp",
                   "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/1b/47/80/1b4780c9-4cfd-1295-30c7-cbac2ee9f5d3/30797521-a83b-484b-ba8c-9e70626e258a_iOS-6.5-in_2.jpg/460x996bb.webp",
@@ -291,6 +296,16 @@ jobs:
           jq -e '.name and .apps' apps.json > /dev/null
           echo "JSON valid"
           jq -r '.apps[] | "  \(.name) v\(.version)"' apps.json
+
+          # Every download link must resolve, so a missing release fails the run
+          for URL in $(jq -r '.apps[].downloadURL' apps.json); do
+            CODE=$(curl -sIL -o /dev/null -w '%{http_code}' "$URL")
+            echo "  $CODE $URL"
+            if [ "$CODE" != "200" ]; then
+              echo "Download link did not return 200"
+              exit 1
+            fi
+          done
 
       # ============================================================
       # Commit and push
