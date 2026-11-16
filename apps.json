@@ -10,7 +10,7 @@
       "name": "YTKACE",
       "bundleIdentifier": "com.google.ios.youtube",
       "developerName": "itzzace",
-      "version": "21.46.3",
+      "version": "21.46.3-1.1.8",
       "versionDate": "2026-11-15",
       "downloadURL": "https://github.com/monkeydluffy17d/sidestore-source/releases/download/stripped-v1.1.8/ytkace_stripped.ipa",
       "localizedDescription": "An enhanced YouTube client featuring background playback, ad-blocking, and custom overlay options.\n\n**Note:** This version has embedded extensions removed to save App IDs on free accounts.\n\n✨ Full Changelog & Release History:\nhttps://github.com/itzzace/ytkace/releases",
@@ -18,6 +18,7 @@
       "subtitle": "Videos, Music and Live Streams",
       "iconURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d4/21/29/d4212929-8101-bde8-3b87-06455bed3cb7/Placeholder.mill/400x400bb-75.webp",
       "tintColor": "FF0000",
+      "minOSVersion": "17.0",
       "screenshots": [
         "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/20/e0/9a/20e09afc-ad0c-bfbe-954b-d5b8d40c5401/91963c43-9224-4e3f-ae6c-ba3ac6de40cd_iOS-6.5-in_1.jpg/460x996bb.webp",
         "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/1b/47/80/1b4780c9-4cfd-1295-30c7-cbac2ee9f5d3/30797521-a83b-484b-ba8c-9e70626e258a_iOS-6.5-in_2.jpg/460x996bb.webp",
