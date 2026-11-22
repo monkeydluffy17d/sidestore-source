@@ -10,11 +10,11 @@
       "name": "YTKACE",
       "bundleIdentifier": "com.google.ios.youtube",
       "developerName": "itzzace",
-      "version": "21.46.3-1.1.8",
-      "versionDate": "2026-11-15",
-      "downloadURL": "https://github.com/monkeydluffy17d/sidestore-source/releases/download/stripped-v1.1.8/ytkace_stripped.ipa",
+      "version": "21.47.6-1.1.9",
+      "versionDate": "2026-11-22",
+      "downloadURL": "https://github.com/monkeydluffy17d/sidestore-source/releases/download/stripped-v1.1.9/ytkace_stripped.ipa",
       "localizedDescription": "An enhanced YouTube client featuring background playback, ad-blocking, and custom overlay options.\n\n**Note:** This version has embedded extensions removed to save App IDs on free accounts.\n\n✨ Full Changelog & Release History:\nhttps://github.com/itzzace/ytkace/releases",
-      "versionDescription": "by @itzzace0\n\nThe FlareStore certificate giveaway is still going in the YTKACE Telegram channel: https://t.me/ytkace\n\nWhat's new:\n• Updated to YouTube 21.46.3\n• Added Return YouTube Dislike for videos, Shorts and the description panel\n• YTKACE and YouTube buttons can now be mixed in the top row and the fullscreen bar\n• Added a left button column, and every player button can now be edited in the layout editor\n• Added fullscreen bar button toggles\n• Added a compact Quality Button and quality settings for AirPlay and Low Power Mode\n• Added an option to bypass the Premium device streaming limit\n• Added Shorts feed filters for live streams and posts\n• Shorts auto-scroll now waits while you read comments\n• Reworked Swipe to Seek and hold speed\n• PiP now uses native iOS PiP\n\nFixed:\n• Crash when the fullscreen buttons rebuild\n• PiP not starting again after a Short or after the first time\n• PiP starting when leaving the app with the video paused\n• Player download button with HLS\n• Captions turning back on after turning them off\n• Shorts missing on channels opened from a Short\n• Tab bar taps when the Shorts tab is hidden\n• Glass tab bar hidden behind incognito and the sleep timer strip\n• Controls hiding while using buttons, hold speed seeking, backup restore and title overlap\n\nYouTube 21.46.3 requires iOS 17, so there are two IPAs:\n• `YTKACE_1.1.8_YouTube_21.46.3.ipa` for iOS 17 and newer\n• `YTKACE_1.1.8_YouTube_iOS16_21.33.6.ipa` for iOS 16\n",
+      "versionDescription": "by @itzzace0\n\nWhat's new:\n• Updated to YouTube 21.47.6\n• Action bar editor: reorder buttons and move ⋯ items into the bar\n• Added Remove AI Summaries\n• Added Avoid Notch Cutoff\n• Added an option to disable PiP from the miniplayer\n• Added a fullscreen orientation option, and vertical videos stay in portrait\n• Added the Open in YTKACE Safari extension\n• Remove Products now also hides product rows and cards in feeds, search and the iPad sidebar\n• Backups moved to their own page with last backup and size details\n• Swipe to Seek shows the preview frame and a bigger scrubber\n\nFixed:\n• Launch hang and crash with Remove Filter Chips on the new Home tabs layout\n• Products panel opening on its own\n• PiP falling back for free accounts outside the US\n• Dislike count on iPhone when Dislike is in the ⋯ menu\n• Hold speed pill in right-to-left languages and at 2x\n• Blank search with Shorts hidden\n• Messages button showing on some tabs\n• HLS playback fix not fully applying on newer YouTube versions\n\nYouTube 21.47.6 requires iOS 17, so there are two IPAs:\n• `YTKACE_1.1.9_YouTube_21.47.6.ipa` for iOS 17 and newer\n• `YTKACE_1.1.9_YouTube_iOS16_21.33.6.ipa` for iOS 16\n",
       "subtitle": "Videos, Music and Live Streams",
       "iconURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d4/21/29/d4212929-8101-bde8-3b87-06455bed3cb7/Placeholder.mill/400x400bb-75.webp",
       "tintColor": "FF0000",
@@ -26,7 +26,7 @@
         "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/7d/80/e8/7d80e8b3-6ec8-3634-d6d6-2cbc290363dc/7500778b-8579-41fa-a538-11cce073604b_iOS-6.5-in_4.jpg/460x996bb.webp",
         "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/cb/3f/4b/cb3f4bb7-69aa-b669-95e0-953b800bd208/6dbb548a-365f-4c7d-a56c-f41b7be9642c_iOS-6.5-in_5.jpg/460x996bb.webp"
       ],
-      "size": 136949303
+      "size": 138439260
     },
     {
       "name": "EeveeSpotifyReincarnated",
